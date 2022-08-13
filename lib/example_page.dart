@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ExamplePage extends StatefulWidget {
-  const ExamplePage({Key? key}) : super(key: key);
+  final String title;
+  const ExamplePage({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -42,7 +43,7 @@ class _ExamplePageState extends State<ExamplePage> {
       appBar: AppBar(
         // Here we take the value from the ExamplePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: const Text('examplePage'),
+        title: Text(widget.title),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it

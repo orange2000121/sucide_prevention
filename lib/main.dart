@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sucide_prevention/auth/login_page.dart';
-import 'package:sucide_prevention/example_page.dart';
 import 'package:sucide_prevention/splash_page.dart';
 
 void main(List<String> args) {
@@ -14,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Future.delayed(const Duration(seconds: 3)),
+      future: Future.delayed(const Duration(seconds: 1)),
       builder: (context, AsyncSnapshot snapshot) {
         // Loading
         if (snapshot.connectionState == ConnectionState.waiting) {

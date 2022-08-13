@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:sucide_prevention/example_page.dart';
+import 'package:sucide_prevention/utils.dart';
+
+import 'fogot_password.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -33,11 +35,34 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('忘記帳號密碼 / 註冊帳號',
-                    style: TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
-                    )),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ForgotPassword(),
+                          ),
+                        );
+                      },
+                      child: const Text('忘記密碼', style: ThemeText.titleStyle),
+                    ),
+                    Container(alignment: Alignment.center, width: 20, child: const Text('/', style: ThemeText.titleStyle)),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ExamplePage(title: 'hello'),
+                          ),
+                        );
+                      },
+                      child: const Text('註冊帳號', style: ThemeText.titleStyle),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 20),
                 SizedBox(
                   width: 300,
@@ -45,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                     decoration: const InputDecoration(
                       labelText: '帳號',
                       hintStyle: TextStyle(fontSize: 18),
-                      border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(30)), borderSide: BorderSide(color: Color(0xff707070))),
+                      border: ThemeBorder.inputBorder,
                     ),
                   ),
                 ),
@@ -56,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                     decoration: const InputDecoration(
                       labelText: '密碼',
                       hintStyle: TextStyle(fontSize: 18),
-                      border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(30)), borderSide: BorderSide(color: Color(0xff707070))),
+                      border: ThemeBorder.inputBorder,
                     ),
                   ),
                 ),
