@@ -1,0 +1,27 @@
+{
+    "痛苦": {
+        "attribute": "options",
+        "child": {
+            "身體": {
+                "attribute": "scale",
+                "child":{}
+            }
+        }
+    },
+    "快樂": {
+        "attribute": "options",
+        "child": []
+    },
+    "衝動想法": {
+        "attribute": "options",
+        "child": []
+    },
+    "其他情緒": {
+        "attribute": "options",
+        "child": []
+    },
+    "酒精/毒品": {
+        "attribute": "options",
+        "child": []
+    }
+}
