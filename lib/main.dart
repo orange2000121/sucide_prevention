@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sucide_prevention/auth/login_page.dart';
 import 'package:sucide_prevention/splash_page.dart';
+import 'package:sucide_prevention/test/test_home.dart';
 
 void main(List<String> args) {
   runApp(const MyApp());
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         // Main
         else {
           return const MaterialApp(
-            home: LoginPage(),
+            home: TestHome(),
           );
         }
       },
