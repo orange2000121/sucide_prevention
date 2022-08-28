@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "233133953806",
+    "project_id": "suside-prevention",
+    "storage_bucket": "suside-prevention.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:233133953806:android:12133f6667dd0ff13ebd5f",
+        "android_client_info": {
+          "package_name": "com.example.sucide_prevention"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "233133953806-cirq5g5dr8flsa61kb4ega0a94vj2mpd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJ9VNmndQJK3UcehVpqX4UAcuJTvhH87c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "233133953806-cirq5g5dr8flsa61kb4ega0a94vj2mpd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

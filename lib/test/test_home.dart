@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sucide_prevention/test/rate.dart';
 
 class TestHome extends StatefulWidget {

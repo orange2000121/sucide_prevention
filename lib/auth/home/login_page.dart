@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sucide_prevention/example_page.dart';
+import 'package:sucide_prevention/auth/components/google_login.dart';
+import 'package:sucide_prevention/emergency_survival_kit/home/emergency_survival_home.dart';
+import 'package:sucide_prevention/test/example_page.dart';
 import 'package:sucide_prevention/utils.dart';
-
-import 'fogot_password.dart';
+import 'package:sucide_prevention/auth/pagination/fogot_password.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("resources/splash_background.png"),
+            image: AssetImage("resources/image/background/splash_background.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -87,7 +88,14 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 20),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SurvialHome(),
+                      ),
+                    );
+                  },
                   child: Container(
                     width: 300,
                     height: 60,
@@ -114,21 +122,12 @@ class _LoginPageState extends State<LoginPage> {
                         width: 80,
                         height: 80,
                         decoration: const BoxDecoration(
-                          image: DecorationImage(image: AssetImage('resources/button/apple__4_-removebg-preview.png')),
+                          image: DecorationImage(image: AssetImage('resources/image/button/apple__4_-removebg-preview.png')),
                         ),
                       ),
                     ),
                     const SizedBox(width: 20),
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        width: 80,
-                        height: 80,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(image: AssetImage('resources/button/google__1_-removebg-preview.png')),
-                        ),
-                      ),
-                    )
+                    const GoogleSignInButton(),
                   ],
                 )
               ],
