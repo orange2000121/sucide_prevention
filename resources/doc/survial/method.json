@@ -1,0 +1,36 @@
+{
+    "title": [
+        "改變臉的溫度",
+        "激烈運動",
+        "熱水澡",
+        "調節呼吸",
+        "吃喜歡的東西"
+    ],
+    "content": [
+        [
+            "1.拿出冰水或冰袋",
+            "2.放在眼睛與臉頰15-30s",
+            "功效: 心跳變慢，調節情緒"
+        ],
+        [
+            "使用時機：憤怒、煩躁、無法思考",
+            "舉例:跑步、游泳、爬山、重訓"
+        ],
+        [
+            "泡個溫暖的澡總是能忘卻煩惱"
+        ],
+        [
+            "穩定平順的呼吸有助於穩定情緒"
+        ],
+        [
+            "用另外一種方式喜愛自己"
+        ]
+    ],
+    "image": [
+        "resources/image/survial/Meditation-pana.png",
+        "resources/image/survial/Image_4.png",
+        "resources/image/survial/Image_3.png",
+        "resources/image/survial/Eating_donuts-pana.png",
+        "resources/image/survial/Bath.png"
+    ]
+}

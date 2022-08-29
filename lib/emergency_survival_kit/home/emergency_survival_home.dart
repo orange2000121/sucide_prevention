@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sucide_prevention/components/bottom_button.dart';
+import 'package:sucide_prevention/components/bottom_bar.dart';
 import 'package:sucide_prevention/emergency_survival_kit/pagination/survial_method.dart';
+import 'package:sucide_prevention/tool/load_json.dart';
 
 import 'package:sucide_prevention/utils.dart';
 
@@ -12,14 +13,7 @@ class SurvialHome extends StatefulWidget {
 }
 
 class _SurvialHomeState extends State<SurvialHome> {
-  static const survialTitle = ['改變臉的溫度', '激烈運動', '熱水澡', '調節呼吸', '吃喜歡的東西'];
-  static const survialImage = [
-    'resources/image/survial/Meditation-pana.png',
-    'resources/image/survial/Image 4.png',
-    'resources/image/survial/Image 3.png',
-    'resources/image/survial/Eating donuts-pana.png',
-    'resources/image/survial/Bath.png',
-  ];
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,25 +28,39 @@ class _SurvialHomeState extends State<SurvialHome> {
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height - 230,
-            child: ListView.builder(
-              itemCount: survialTitle.length,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SurvialMethod(methodNum: '$index')));
-                  },
-                  child: Column(
-                    children: [
-                      Text('方法${index + 1}: ${survialTitle[index]}', style: ThemeText.subtitleStyle),
-                      const SizedBox(height: 10),
-                      Image.asset(survialImage[index], width: MediaQuery.of(context).size.width - 50, height: 200),
-                    ],
-                  ),
-                );
-              },
-            ),
+            child: FutureBuilder(
+                future: readMethod('resources/doc/survial/method.json'),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    List? survialTitle = snapshot.data['title'];
+                    List? survialImage = snapshot.data['image'];
+
+                    return ListView.builder(
+                      itemCount: survialTitle!.length,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            debugPrint('$index');
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => SurvialMethod(methodNum: index)));
+                          },
+                          child: Column(
+                            children: [
+                              Text('方法${index + 1}: ${survialTitle[index]}', style: ThemeText.subtitleStyle),
+                              const SizedBox(height: 10),
+                              Image.asset(survialImage![index], width: MediaQuery.of(context).size.width - 50, height: 200),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                }),
           ),
-          const BottomButton(),
+          const BottomBar(),
         ]),
       ),
     );
