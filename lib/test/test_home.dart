@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sucide_prevention/choose_mood/components/mood_rating_bar.dart';
+import 'package:sucide_prevention/choose_mood/pagination/positive_negative_mood.dart';
 import 'package:sucide_prevention/test/rate.dart';
 
 class TestHome extends StatefulWidget {
@@ -24,6 +26,24 @@ class _TestHomeState extends State<TestHome> {
                 );
               },
               child: const Text('Rate'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Scaffold(body: Center(child: MoodRatingBar()))),
+                );
+              },
+              child: const Text('mood ratingbar'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Scaffold(body: Center(child: PosNegMood()))),
+                );
+              },
+              child: const Text('pos neg mood'),
             ),
           ],
         ));

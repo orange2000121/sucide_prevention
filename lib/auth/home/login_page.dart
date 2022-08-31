@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sucide_prevention/auth/components/google_login.dart';
-import 'package:sucide_prevention/emergency_survival_kit/home/emergency_survival_home.dart';
 import 'package:sucide_prevention/home/home_page.dart';
 import 'package:sucide_prevention/test/example_page.dart';
 import 'package:sucide_prevention/utils.dart';

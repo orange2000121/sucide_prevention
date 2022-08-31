@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) => setState(() => currentIndex = value),
         currentIndex: currentIndex,
-        backgroundColor: Color(0xFFD6DCDB),
+        backgroundColor: const Color(0xFFD6DCDB),
         items: [
           BottomNavigationBarItem(
               icon: BottomButton(

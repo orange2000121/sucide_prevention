@@ -23,3 +23,11 @@ abstract class ThemeBorder {
     borderSide: BorderSide(color: Color(0xff707070)),
   );
 }
+
+abstract class ThemeButton {
+  static ButtonStyle ovalButton = ButtonStyle(
+      foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+      backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0))),
+      tapTargetSize: MaterialTapTargetSize.shrinkWrap);
+}

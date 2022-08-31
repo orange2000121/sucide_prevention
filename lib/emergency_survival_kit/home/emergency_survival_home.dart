@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sucide_prevention/components/bottom_bar.dart';
 import 'package:sucide_prevention/emergency_survival_kit/pagination/survial_method.dart';
 import 'package:sucide_prevention/tool/load_json.dart';
 
