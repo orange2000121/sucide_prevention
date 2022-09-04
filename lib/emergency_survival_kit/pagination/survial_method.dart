@@ -18,6 +18,7 @@ class _SurvialMethodState extends State<SurvialMethod> {
         title: const Text('緊急救生包'),
       ),
       body: Container(
+        width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
           image: DecorationImage(image: AssetImage("resources/image/background/method_background.png"), fit: BoxFit.cover),
         ),
@@ -28,27 +29,20 @@ class _SurvialMethodState extends State<SurvialMethod> {
               List method = snapshot.data['content'][widget.methodNum];
               String title = snapshot.data['title'][widget.methodNum];
               String image = snapshot.data['image'][widget.methodNum];
-              return ListView.builder(
-                itemCount: method.length + 2,
-                itemBuilder: (context, index) {
-                  if (index == 0) {
-                    return Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text('方法${widget.methodNum + 1}: $title', style: ThemeText.titleStyle),
-                      ),
-                    );
-                  } else if (index < method.length + 1) {
-                    return Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(method[index - 1], style: ThemeText.subtitleStyle),
-                      ),
-                    );
-                  } else {
-                    return Image.asset(image, width: MediaQuery.of(context).size.width - 50, height: 200);
-                  }
-                },
+              List<Widget> contents = [];
+              for (int i = 0; i < method.length; i++) {
+                contents.add(Text(method[i], style: ThemeText.subtitleStyle));
+              }
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('方法${widget.methodNum + 1}: $title', style: ThemeText.titleStyle),
+                  ),
+                  ...contents,
+                  Image.asset(image, width: MediaQuery.of(context).size.width - 50, height: 200)
+                ],
               );
             } else {
               return const Center(

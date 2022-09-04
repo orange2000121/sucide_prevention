@@ -27,10 +27,10 @@
         ]
     ],
     "image": [
-        "resources/image/survial/Meditation-pana.png",
-        "resources/image/survial/Image_4.png",
         "resources/image/survial/Image_3.png",
-        "resources/image/survial/Eating_donuts-pana.png",
-        "resources/image/survial/Bath.png"
+        "resources/image/survial/Image_4.png",
+        "resources/image/survial/Bath.png",
+        "resources/image/survial/Meditation-pana.png",
+        "resources/image/survial/Eating_donuts-pana.png"
     ]
 }
