@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sucide_prevention/utils.dart';
+import 'package:sucide_prevention/choose_mood/components/mood_rating_bar.dart';
+import 'package:sucide_prevention/choose_mood/pagination/button_options.dart';
+import 'package:sucide_prevention/choose_mood/pagination/positive_negative_mood.dart';
+import 'package:sucide_prevention/choose_mood/doc/questions.dart';
 
 class MoodHome extends StatefulWidget {
   const MoodHome({Key? key}) : super(key: key);
@@ -9,48 +12,54 @@ class MoodHome extends StatefulWidget {
 }
 
 class _MoodHomeState extends State<MoodHome> {
+  /// 輸入問題標籤，輸出製作好的問卷頁面
+  ///
+  /// args : List<int> questions
+  ///
+  /// return : List<Widget> pages
+
+  List<Widget> questionPagination = [];
+
+  List<Widget> makeQuestionPagination(List questions) {
+    for (int i = 0; i < questions.length; i++) {
+      Map question = MoodDoc.allQuestions[questions[i].toString()];
+      switch (question['type']) {
+        case "rattingBar":
+          questionPagination.add(MoodRatingBar(
+            title: question['title'],
+            colors: question['options'],
+          ));
+          break;
+        case "posNegMood":
+          questionPagination.add(const PosNegMood());
+          break;
+        case "buttonOptipn":
+          questionPagination.add(ButtonOptions(
+            title: question['title'],
+            options: question['options'],
+            onPressed: (option) {},
+          ));
+          break;
+      }
+    }
+    return questionPagination;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    makeQuestionPagination(MoodDoc.questionOrder['衝動想法']);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('resources/image/background/splash_background.png'), fit: BoxFit.cover)),
-        child: Column(
-          children: [
-            const Padding(padding: EdgeInsets.fromLTRB(0, 100, 0, 10), child: Text('選擇今天的心情狀況', style: ThemeText.titleStyle)),
-            OptionButton(
-                onPressed: () {
-                  debugPrint('快樂');
-                },
-                title: '快樂'),
-            OptionButton(
-                onPressed: () {
-                  debugPrint('痛苦');
-                },
-                title: '痛苦'),
-            OptionButton(onPressed: () {}, title: '衝動想法'),
-            OptionButton(onPressed: () {}, title: '酒精/毒品'),
-            OptionButton(onPressed: () {}, title: '其他情緒'),
-          ],
-        ));
-  }
-}
-
-class OptionButton extends StatelessWidget {
-  final VoidCallback onPressed;
-  final String title;
-  const OptionButton({Key? key, required this.onPressed, required this.title}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
-      child: ElevatedButton(
-          onPressed: onPressed,
-          style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-              backgroundColor: MaterialStateProperty.all<Color>(const Color(0xffE0E0E0)),
-              minimumSize: MaterialStateProperty.all<Size>(const Size.fromHeight(60)),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)))),
-          child: Text(title, style: ThemeText.subtitleStyle)),
-    );
+        child: PageView.builder(
+            itemCount: questionPagination.length,
+            itemBuilder: (BuildContext context, int index) {
+              return questionPagination[index];
+            }));
   }
 }

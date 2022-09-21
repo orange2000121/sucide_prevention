@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sucide_prevention/test/rate.dart';
 
 void main() {
   // Define a test. The TestWidgets function also provides a WidgetTester
@@ -7,6 +6,5 @@ void main() {
   // with widgets in the test environment.
   testWidgets('MyWidget has a title and message', (tester) async {
     // Test code goes here.
-    tester.pumpWidget(const RateBar());
   });
 }

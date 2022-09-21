@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sucide_prevention/choose_mood/components/mood_rating_bar.dart';
+import 'package:sucide_prevention/choose_mood/pagination/button_options.dart';
 import 'package:sucide_prevention/choose_mood/pagination/positive_negative_mood.dart';
-import 'package:sucide_prevention/test/rate.dart';
 
 class TestHome extends StatefulWidget {
   const TestHome({Key? key}) : super(key: key);
@@ -22,16 +22,16 @@ class _TestHomeState extends State<TestHome> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const RateBar()),
-                );
-              },
-              child: const Text('Rate'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const Scaffold(body: Center(child: MoodRatingBar()))),
+                  MaterialPageRoute(
+                      builder: (context) => const Scaffold(
+                              body: Center(
+                                  child: MoodRatingBar(title: '今天心情如何', colors: [
+                            Color(0xffFFB5B5),
+                            Color(0xffFF9797),
+                            Color(0xffFF7575),
+                            Color(0xffFF5151),
+                            Color(0xffFF2D2D),
+                          ])))),
                 );
               },
               child: const Text('mood ratingbar'),
@@ -41,6 +41,20 @@ class _TestHomeState extends State<TestHome> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Scaffold(body: Center(child: PosNegMood()))),
+                );
+              },
+              child: const Text('pos neg mood'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ButtonOptions(
+                            title: 'test',
+                            options: const ['tes1', 'test2'],
+                            onPressed: (String option) {},
+                          )),
                 );
               },
               child: const Text('pos neg mood'),
