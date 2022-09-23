@@ -67,61 +67,47 @@ class _PosNegMoodState extends State<PosNegMood> {
         ),
       ));
     });
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('resources/image/background/splash_background.png'), fit: BoxFit.cover)),
-        child: Center(
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              Row(
+    return Expanded(
+        child: Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              margin: const EdgeInsets.all(8),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(18), color: const Color(0xffDCD9D9)),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.keyboard_double_arrow_left, size: 40),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(18), color: const Color(0xffDCD9D9)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ElevatedButton(
-                            onPressed: () => setState(() {
-                                  isPositive = true;
-                                }),
-                            style: ThemeButton.ovalButton,
-                            child: Text('正面情緒', style: buttonTextStyle)),
-                        ElevatedButton(
-                            onPressed: () => setState(() {
-                                  isPositive = false;
-                                }),
-                            style: ThemeButton.ovalButton,
-                            child: Text('負面情緒', style: buttonTextStyle)),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 10)
+                  ElevatedButton(
+                      onPressed: () => setState(() {
+                            isPositive = true;
+                          }),
+                      style: ThemeButton.ovalButton,
+                      child: Text('正面情緒', style: buttonTextStyle)),
+                  ElevatedButton(
+                      onPressed: () => setState(() {
+                            isPositive = false;
+                          }),
+                      style: ThemeButton.ovalButton,
+                      child: Text('負面情緒', style: buttonTextStyle)),
                 ],
               ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('選擇對應情緒的詞語', style: ThemeText.subtitleStyle),
-              ),
-              Expanded(
-                child: GridView.count(
-                  crossAxisCount: 3,
-                  childAspectRatio: 1.5,
-                  children: isPositive ? posText : negText,
-                ),
-              )
-            ],
-          ),
+            ),
+          ],
         ),
-      ),
-    );
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text('選擇對應情緒的詞語', style: ThemeText.subtitleStyle),
+        ),
+        Expanded(
+          child: GridView.count(
+            crossAxisCount: 3,
+            childAspectRatio: 1.5,
+            children: isPositive ? posText : negText,
+          ),
+        )
+      ],
+    ));
   }
 }

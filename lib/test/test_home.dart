@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sucide_prevention/choose_mood/components/mood_rating_bar.dart';
-import 'package:sucide_prevention/choose_mood/pagination/button_options.dart';
-import 'package:sucide_prevention/choose_mood/pagination/positive_negative_mood.dart';
+import 'package:sucide_prevention/choose_mood/components/button_options.dart';
+import 'package:sucide_prevention/choose_mood/components/positive_negative_mood.dart';
 
 class TestHome extends StatefulWidget {
   const TestHome({Key? key}) : super(key: key);

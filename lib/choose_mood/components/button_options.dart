@@ -19,18 +19,21 @@ class ButtonOptions extends StatefulWidget {
 class _ButtonOptionsState extends State<ButtonOptions> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('resources/image/background/splash_background.png'), fit: BoxFit.cover)),
-        child: Column(children: [
-          Padding(padding: const EdgeInsets.fromLTRB(0, 100, 0, 10), child: Text(widget.title, style: ThemeText.titleStyle)),
-          ...List.generate(widget.options.length, (index) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(widget.title, style: ThemeText.titleStyle),
+        Column(
+          children: List.generate(widget.options.length, (index) {
             return OptionButton(
               onPressed: () => widget.onPressed(widget.options[index]),
               title: widget.options[index],
             );
           }),
-        ]));
+        ),
+        const SizedBox(),
+      ],
+    );
   }
 }
 
@@ -40,6 +43,7 @@ class OptionButton extends StatelessWidget {
   const OptionButton({Key? key, required this.onPressed, required this.title}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    double h = MediaQuery.of(context).size.height;
     return Padding(
       padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
       child: ElevatedButton(
@@ -47,7 +51,7 @@ class OptionButton extends StatelessWidget {
           style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
               backgroundColor: MaterialStateProperty.all<Color>(const Color(0xffE0E0E0)),
-              minimumSize: MaterialStateProperty.all<Size>(const Size.fromHeight(60)),
+              minimumSize: MaterialStateProperty.all<Size>(Size.fromHeight(h * 0.08)),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)))),
           child: Text(title, style: ThemeText.subtitleStyle)),
     );
