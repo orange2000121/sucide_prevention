@@ -26,13 +26,13 @@ class _LocationsState extends State<Locations> {
             Padding(
               padding: EdgeInsets.fromLTRB(h * 0.13, 0, 0, 0),
               child: Row(
-                children: const [
-                  Text('其他', style: ThemeText.subtitleStyle),
-                  SizedBox(width: 10),
+                children: [
+                  const Text('其他', style: ThemeText.subtitleStyle),
+                  const SizedBox(width: 10),
                   SizedBox(
                     width: 150,
                     child: TextField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         filled: true,
                         fillColor: Color(0xffE0E0E0),
                         border: OutlineInputBorder(
@@ -40,6 +40,9 @@ class _LocationsState extends State<Locations> {
                         ),
                         hintText: '請輸入地點',
                       ),
+                      onSubmitted: (value) {
+                        print(value);
+                      },
                     ),
                   ),
                 ],

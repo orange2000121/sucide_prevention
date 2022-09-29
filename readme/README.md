@@ -28,4 +28,10 @@
   * 的介面
   * tool: api/storge等等邏輯
   * utils: style設定
-
+## 問卷
+問題集存在`lib/choose_mood/doc/questions.dart`
+* allQuestions: 所有的問題
+  * type: 問題類型：posNegMood,location,rattingBar,optionWheel,form,using,buttonOptipn,date
+  * title: 問題的標題
+  * options: 選項文字或顏色
+* questionOrder: 問題的順序

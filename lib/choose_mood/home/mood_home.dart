@@ -4,6 +4,9 @@ import 'package:sucide_prevention/choose_mood/components/locations.dart';
 import 'package:sucide_prevention/choose_mood/components/mood_rating_bar.dart';
 import 'package:sucide_prevention/choose_mood/components/button_options.dart';
 import 'package:sucide_prevention/choose_mood/components/positive_negative_mood.dart';
+import 'package:sucide_prevention/choose_mood/components/short_answer.dart';
+import 'package:sucide_prevention/choose_mood/components/used.dart';
+import 'package:sucide_prevention/choose_mood/components/wheel_chose.dart';
 import 'package:sucide_prevention/choose_mood/doc/questions.dart';
 
 import 'package:sucide_prevention/utils.dart';
@@ -24,8 +27,9 @@ class _MoodHomeState extends State<MoodHome> {
 
   List<Widget> questionPagination = [];
 
-  List<Widget> makeQuestionPagination(List questions) {
+  List<Widget> makeQuestionPagination(List questions, {List<Widget> lastQuestionPagination = const []}) {
     questionPagination = [];
+    questionPagination.addAll(lastQuestionPagination);
     for (int i = 0; i < questions.length; i++) {
       Map question = MoodDoc.allQuestions[questions[i].toString()];
       switch (question['type']) {
@@ -44,7 +48,7 @@ class _MoodHomeState extends State<MoodHome> {
             options: question['options'],
             onPressed: (option) {
               setState(() {
-                makeQuestionPagination(MoodDoc.questionOrder[option]);
+                makeQuestionPagination(MoodDoc.questionOrder[option],lastQuestionPagination:questionPagination[] );
               });
             },
           ));
@@ -56,6 +60,22 @@ class _MoodHomeState extends State<MoodHome> {
           break;
         case "location":
           questionPagination.add(Locations(
+            title: question['title'],
+          ));
+          break;
+        case "optionWheel":
+          questionPagination.add(WheelChoose(
+            title: question['title'],
+            options: question['options'],
+          ));
+          break;
+        case "form":
+          questionPagination.add(ShortAnswer(
+            title: question['title'],
+          ));
+          break;
+        case "using":
+          questionPagination.add(Used(
             title: question['title'],
           ));
           break;
@@ -82,7 +102,7 @@ class _MoodHomeState extends State<MoodHome> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsets.fromLTRB(0, topPadding, 0, 0),
+                padding: EdgeInsets.only(top: topPadding),
                 child: Row(children: [
                   IconButton(
                     iconSize: 40,
@@ -97,32 +117,68 @@ class _MoodHomeState extends State<MoodHome> {
                         });
                       }
                     },
-                    icon: const Icon(Icons.arrow_back),
+                    icon: const Icon(Icons.keyboard_double_arrow_left),
                   )
                 ]),
               ),
               Expanded(child: questionPagination[pageIndex]),
-              InkWell(
-                onTap: () {
-                  if (pageIndex < questionPagination.length - 1) {
-                    setState(() {
-                      pageIndex++;
-                    });
-                  }
-                },
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [
-                      Text('下ㄧ頁', style: ThemeText.buttonStyle),
-                      Icon(Icons.arrow_forward, size: 40),
-                    ],
-                  ),
-                ),
-              )
+              pageIndex == questionPagination.length - 1 && pageIndex != 0
+                  ? SendUp(onTap: () {})
+                  : NextQuestion(onTap: () {
+                      if (pageIndex < questionPagination.length - 1) {
+                        setState(() {
+                          pageIndex++;
+                        });
+                      }
+                    })
             ],
           )),
+    );
+  }
+}
+
+class NextQuestion extends StatelessWidget {
+  final VoidCallback onTap;
+  const NextQuestion({Key? key, required this.onTap}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          InkWell(
+            onTap: onTap,
+            child: Row(
+              children: const [
+                Text('下ㄧ頁', style: ThemeText.buttonStyle),
+                Icon(Icons.keyboard_double_arrow_right, size: 40),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SendUp extends StatelessWidget {
+  final VoidCallback onTap;
+  const SendUp({Key? key, required this.onTap}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: ElevatedButton(
+        onPressed: onTap,
+        style: ThemeButton.mainButton,
+        child: const Padding(
+          padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+          child: Text('送出', style: ThemeText.buttonStyle),
+        ),
+      ),
     );
   }
 }

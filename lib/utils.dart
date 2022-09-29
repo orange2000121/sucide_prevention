@@ -5,6 +5,10 @@ abstract class ThemeText {
     fontSize: 30,
     // fontWeight: FontWeight.bold,
   );
+  static const TextStyle subtitleStyle = TextStyle(
+    fontSize: 25,
+    // fontSize: 20,
+  );
   static const TextStyle buttonStyle = TextStyle(
     fontSize: 23,
   );
@@ -12,8 +16,9 @@ abstract class ThemeText {
     fontSize: 16,
     color: Colors.black,
   );
-  static const TextStyle subtitleStyle = TextStyle(
+  static const TextStyle dropDownItem = TextStyle(
     fontSize: 20,
+    color: Colors.black,
   );
 }
 
@@ -28,6 +33,11 @@ abstract class ThemeButton {
   static ButtonStyle ovalButton = ButtonStyle(
       foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
       backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0))),
+      tapTargetSize: MaterialTapTargetSize.shrinkWrap);
+  static ButtonStyle mainButton = ButtonStyle(
+      foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+      backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(194, 242, 242, 242)),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0))),
       tapTargetSize: MaterialTapTargetSize.shrinkWrap);
 }
