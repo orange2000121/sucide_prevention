@@ -26,7 +26,7 @@ class _MoodHomeState extends State<MoodHome> {
   /// return : List<Widget> pages
 
   List<Widget> questionPagination = [];
-
+  Widget lastOption = const SizedBox();
   List<Widget> makeQuestionPagination(List questions, {List<Widget> lastQuestionPagination = const []}) {
     questionPagination = [];
     questionPagination.addAll(lastQuestionPagination);
@@ -43,15 +43,20 @@ class _MoodHomeState extends State<MoodHome> {
           questionPagination.add(const PosNegMood());
           break;
         case "buttonOptipn":
-          questionPagination.add(ButtonOptions(
+          Widget buttonOption = ButtonOptions(
             title: question['title'],
             options: question['options'],
             onPressed: (option) {
               setState(() {
-                makeQuestionPagination(MoodDoc.questionOrder[option],lastQuestionPagination:questionPagination[] );
+                makeQuestionPagination(
+                  MoodDoc.questionOrder[option],
+                  lastQuestionPagination: questionPagination.sublist(0, ++pageIndex),
+                );
               });
             },
-          ));
+          );
+          lastOption = buttonOption;
+          questionPagination.add(buttonOption);
           break;
         case "date":
           questionPagination.add(ChoseDate(
@@ -81,6 +86,7 @@ class _MoodHomeState extends State<MoodHome> {
           break;
       }
     }
+    print(questionPagination);
     return questionPagination;
   }
 
@@ -93,6 +99,7 @@ class _MoodHomeState extends State<MoodHome> {
   int pageIndex = 0;
   @override
   Widget build(BuildContext context) {
+    print('page index: $pageIndex');
     double topPadding = MediaQuery.of(context).padding.top;
     return Scaffold(
       body: Container(
@@ -101,26 +108,28 @@ class _MoodHomeState extends State<MoodHome> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
-                padding: EdgeInsets.only(top: topPadding),
-                child: Row(children: [
-                  IconButton(
-                    iconSize: 40,
-                    onPressed: () {
-                      if (pageIndex == 0) {
-                        setState(() {
-                          makeQuestionPagination(MoodDoc.questionOrder['main']);
-                        });
-                      } else if (pageIndex < questionPagination.length) {
-                        setState(() {
-                          pageIndex--;
-                        });
-                      }
-                    },
-                    icon: const Icon(Icons.keyboard_double_arrow_left),
-                  )
-                ]),
-              ),
+              pageIndex == 0
+                  ? SizedBox(height: topPadding + 40)
+                  : Padding(
+                      padding: EdgeInsets.only(top: topPadding),
+                      child: Row(children: [
+                        IconButton(
+                          iconSize: 40,
+                          onPressed: () {
+                            if (pageIndex == 0) {
+                              setState(() {
+                                makeQuestionPagination(MoodDoc.questionOrder['main']);
+                              });
+                            } else if (pageIndex < questionPagination.length) {
+                              setState(() {
+                                pageIndex--;
+                              });
+                            }
+                          },
+                          icon: const Icon(Icons.keyboard_double_arrow_left),
+                        )
+                      ]),
+                    ),
               Expanded(child: questionPagination[pageIndex]),
               pageIndex == questionPagination.length - 1 && pageIndex != 0
                   ? SendUp(onTap: () {})
@@ -170,12 +179,12 @@ class SendUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.only(bottom: 10),
       child: ElevatedButton(
         onPressed: onTap,
         style: ThemeButton.mainButton,
         child: const Padding(
-          padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+          padding: EdgeInsets.fromLTRB(30, 7, 30, 7),
           child: Text('送出', style: ThemeText.buttonStyle),
         ),
       ),
