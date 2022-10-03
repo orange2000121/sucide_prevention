@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sucide_prevention/auth/home/login_page.dart';
 import 'package:sucide_prevention/home/home_page.dart';
 import 'package:sucide_prevention/splash_page.dart';
 
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         // Main
         else {
           return const MaterialApp(
-            home: HomePage(),
+            home: LoginPage(),
           );
         }
       },

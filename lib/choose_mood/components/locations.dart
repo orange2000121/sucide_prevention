@@ -66,10 +66,11 @@ class LocationButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
-    return Padding(
-      padding: EdgeInsets.fromLTRB(h * 0.1, 0, 0, 0),
-      child: InkWell(
-        onTap: () => onPressed(title),
+    return InkWell(
+      splashColor: Colors.greenAccent,
+      onTap: () => onPressed(title),
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(h * 0.1, 0, 0, 0),
         child: Row(
           children: [
             Image.asset(iconPath, width: h * 0.12),
