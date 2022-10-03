@@ -3,7 +3,8 @@ import 'package:sucide_prevention/utils.dart';
 
 class ShortAnswer extends StatefulWidget {
   final String title;
-  const ShortAnswer({Key? key, required this.title}) : super(key: key);
+  final Function(String answer) onAnswer;
+  const ShortAnswer({Key? key, required this.title, required this.onAnswer}) : super(key: key);
 
   @override
   State<ShortAnswer> createState() => _ShortAnswerState();
@@ -12,7 +13,6 @@ class ShortAnswer extends StatefulWidget {
 class _ShortAnswerState extends State<ShortAnswer> {
   @override
   Widget build(BuildContext context) {
-    double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,7 +31,7 @@ class _ShortAnswerState extends State<ShortAnswer> {
               hintText: '你的心情...',
             ),
             onSubmitted: (value) {
-              print(value);
+              widget.onAnswer(value);
             },
           ),
         ),

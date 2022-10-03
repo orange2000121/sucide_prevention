@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sucide_prevention/auth/components/google_login.dart';
 import 'package:sucide_prevention/home/home_page.dart';
-import 'package:sucide_prevention/test/example_page.dart';
 import 'package:sucide_prevention/utils.dart';
 import 'package:sucide_prevention/auth/pagination/fogot_password.dart';
 
@@ -56,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ExamplePage(title: 'hello'),
+                            builder: (context) => const HomePage(),
                           ),
                         );
                       },

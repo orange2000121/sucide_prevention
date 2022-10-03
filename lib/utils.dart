@@ -30,9 +30,15 @@ abstract class ThemeBorder {
 }
 
 abstract class ThemeButton {
-  static ButtonStyle ovalButton = ButtonStyle(
+  static ButtonStyle ovalButtonSelect = ButtonStyle(
       foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
       backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0))),
+      tapTargetSize: MaterialTapTargetSize.shrinkWrap);
+  static ButtonStyle ovalButtonUnselect = ButtonStyle(
+      foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+      backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+      shadowColor: MaterialStateProperty.all<Color>(Colors.transparent),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0))),
       tapTargetSize: MaterialTapTargetSize.shrinkWrap);
   static ButtonStyle mainButton = ButtonStyle(

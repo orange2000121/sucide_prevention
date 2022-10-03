@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:sucide_prevention/utils.dart';
 
 class ButtonOptions extends StatefulWidget {
-  final Function(String) onPressed;
+  final Function(String) onAnswer;
   final String title;
   final List<String> options;
   const ButtonOptions({
     Key? key,
-    required this.onPressed,
+    required this.onAnswer,
     required this.options,
     required this.title,
   }) : super(key: key);
@@ -26,7 +26,7 @@ class _ButtonOptionsState extends State<ButtonOptions> {
         Column(
           children: List.generate(widget.options.length, (index) {
             return OptionButton(
-              onPressed: () => widget.onPressed(widget.options[index]),
+              onPressed: () => widget.onAnswer(widget.options[index]),
               title: widget.options[index],
             );
           }),

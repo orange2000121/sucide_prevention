@@ -3,7 +3,8 @@ import 'package:sucide_prevention/utils.dart';
 
 class Locations extends StatefulWidget {
   final String title;
-  const Locations({Key? key, required this.title}) : super(key: key);
+  final Function(String location) onAnswer;
+  const Locations({Key? key, required this.title, required this.onAnswer}) : super(key: key);
 
   @override
   State<Locations> createState() => _LocationsState();
@@ -19,10 +20,10 @@ class _LocationsState extends State<Locations> {
         Text(widget.title, style: ThemeText.titleStyle),
         Column(
           children: [
-            const LocationButton(title: '溫暖的家', iconPath: 'resources/image/button/location/home.png'),
-            const LocationButton(title: '公司', iconPath: 'resources/image/button/location/company.png'),
-            const LocationButton(title: '學校', iconPath: 'resources/image/button/location/school.png'),
-            const LocationButton(title: '朋友家', iconPath: 'resources/image/button/location/friend.png'),
+            LocationButton(title: '溫暖的家', iconPath: 'resources/image/button/location/home.png', onPressed: (title) => widget.onAnswer(title)),
+            LocationButton(title: '公司', iconPath: 'resources/image/button/location/company.png', onPressed: (title) => widget.onAnswer(title)),
+            LocationButton(title: '學校', iconPath: 'resources/image/button/location/school.png', onPressed: (title) => widget.onAnswer(title)),
+            LocationButton(title: '朋友家', iconPath: 'resources/image/button/location/friend.png', onPressed: (title) => widget.onAnswer(title)),
             Padding(
               padding: EdgeInsets.fromLTRB(h * 0.13, 0, 0, 0),
               child: Row(
@@ -41,7 +42,7 @@ class _LocationsState extends State<Locations> {
                         hintText: '請輸入地點',
                       ),
                       onSubmitted: (value) {
-                        print(value);
+                        widget.onAnswer(value);
                       },
                     ),
                   ),
@@ -59,7 +60,8 @@ class _LocationsState extends State<Locations> {
 class LocationButton extends StatelessWidget {
   final String title;
   final String iconPath;
-  const LocationButton({Key? key, required this.title, required this.iconPath}) : super(key: key);
+  final Function(String title) onPressed;
+  const LocationButton({Key? key, required this.title, required this.iconPath, required this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +69,7 @@ class LocationButton extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.fromLTRB(h * 0.1, 0, 0, 0),
       child: InkWell(
-        onTap: () {},
+        onTap: () => onPressed(title),
         child: Row(
           children: [
             Image.asset(iconPath, width: h * 0.12),

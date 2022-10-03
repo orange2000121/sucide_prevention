@@ -4,13 +4,28 @@ import 'package:sucide_prevention/utils.dart';
 class WheelChoose extends StatefulWidget {
   final String title;
   final List options;
-  const WheelChoose({Key? key, required this.title, required this.options}) : super(key: key);
+  final Function(List answer) onAnswer;
+  const WheelChoose({
+    Key? key,
+    required this.title,
+    required this.options,
+    required this.onAnswer,
+  }) : super(key: key);
 
   @override
   State<WheelChoose> createState() => _WheelChooseState();
 }
 
 class _WheelChooseState extends State<WheelChoose> {
+  List answer = [];
+  @override
+  void initState() {
+    super.initState();
+    for (int i = 0; i < widget.options.length; i++) {
+      answer.add(widget.options[i][0]);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,7 +38,8 @@ class _WheelChooseState extends State<WheelChoose> {
             children: List.generate(widget.options.length, (index) {
               return Wheel(
                 onSelect: (value) {
-                  print(value);
+                  answer[index] = value;
+                  widget.onAnswer(answer);
                 },
                 options: widget.options[index],
               );

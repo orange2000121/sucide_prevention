@@ -3,13 +3,20 @@ import 'package:sucide_prevention/utils.dart';
 
 class Used extends StatefulWidget {
   final String title;
-  const Used({Key? key, required this.title}) : super(key: key);
+  final Function(Map answer) onAnswer;
+  const Used({Key? key, required this.title, required this.onAnswer}) : super(key: key);
 
   @override
   State<Used> createState() => _UsedState();
 }
 
 class _UsedState extends State<Used> {
+  Map answer = {
+    '有無使用緊急救生包?': '有',
+    '是否使用其他方式？': '有',
+    '有用程度(1-5)': '1',
+    '備註': '',
+  };
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -22,25 +29,28 @@ class _UsedState extends State<Used> {
               title: '有無使用緊急救生包?',
               options: const ['有', '沒有'],
               onSelect: (value) {
-                print(value);
+                answer['有無使用緊急救生包'] = value;
+                widget.onAnswer(answer);
               },
             ),
             Dropdown(
               title: '是否使用其他方式？',
               options: const ['有', '沒有'],
               onSelect: (value) {
-                print(value);
+                answer['是否使用其他方式'] = value;
+                widget.onAnswer(answer);
               },
             ),
             Dropdown(
               title: '有用程度(1-5)',
               options: const ['1', '2', '3', '4', '5'],
               onSelect: (value) {
-                print(value);
+                answer['有用程度'] = value;
+                widget.onAnswer(answer);
               },
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(3.0),
               child: Column(
                 // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -58,7 +68,8 @@ class _UsedState extends State<Used> {
                         ),
                       ),
                       onSubmitted: (value) {
-                        print(value);
+                        answer['備註'] = value;
+                        widget.onAnswer(answer);
                       },
                     ),
                   ),
@@ -93,45 +104,42 @@ class _DropdownState extends State<Dropdown> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(widget.title, style: ThemeText.subtitleStyle),
-          Container(
-            width: MediaQuery.of(context).size.width * 0.65,
-            alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            margin: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-              borderRadius: BorderRadius.circular(28),
-              color: Colors.white,
-            ),
-            child: DropdownButton<String>(
-              value: dropdownValue,
-              icon: const Icon(Icons.arrow_downward),
-              elevation: 30,
-              style: ThemeText.dropDownItem,
-              borderRadius: BorderRadius.circular(10),
-              onChanged: (String? value) {
-                // This is called when the user selects an item.
-                setState(() {
-                  dropdownValue = value!;
-                  widget.onSelect(value);
-                });
-              },
-              items: widget.options.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
+    return Column(
+      // crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(widget.title, style: ThemeText.subtitleStyle),
+        Container(
+          width: MediaQuery.of(context).size.width * 0.65,
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(horizontal: 3.0),
+          margin: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black),
+            borderRadius: BorderRadius.circular(28),
+            color: Colors.white,
           ),
-        ],
-      ),
+          child: DropdownButton<String>(
+            value: dropdownValue,
+            icon: const Icon(Icons.arrow_downward),
+            elevation: 30,
+            style: ThemeText.dropDownItem,
+            borderRadius: BorderRadius.circular(10),
+            onChanged: (String? value) {
+              // This is called when the user selects an item.
+              setState(() {
+                dropdownValue = value!;
+                widget.onSelect(value);
+              });
+            },
+            items: widget.options.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+        ),
+      ],
     );
   }
 }

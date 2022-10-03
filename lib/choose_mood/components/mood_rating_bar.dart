@@ -4,7 +4,10 @@ import 'package:sucide_prevention/utils.dart';
 class MoodRatingBar extends StatefulWidget {
   final String title;
   final List colors;
-  const MoodRatingBar({Key? key, required this.title, required this.colors}) : super(key: key);
+
+  /// 每次更改回答時，會呼叫此函式，回傳數值
+  final Function(String) onAnswer;
+  const MoodRatingBar({Key? key, required this.title, required this.colors, required this.onAnswer}) : super(key: key);
 
   @override
   State<MoodRatingBar> createState() => _MoodRatingBarState();
@@ -33,6 +36,7 @@ class _MoodRatingBarState extends State<MoodRatingBar> {
               onTap: () {
                 setState(() {
                   rating = tempIdx;
+                  widget.onAnswer(rating.toString());
                 });
               },
               child: Container(

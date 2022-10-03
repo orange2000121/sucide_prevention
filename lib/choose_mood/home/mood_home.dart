@@ -26,7 +26,9 @@ class _MoodHomeState extends State<MoodHome> {
   /// return : List<Widget> pages
 
   List<Widget> questionPagination = [];
-  Widget lastOption = const SizedBox();
+  int pageIndex = 0;
+  List<Map> answers = [];
+  Map<String, List> answerTemp = {};
   List<Widget> makeQuestionPagination(List questions, {List<Widget> lastQuestionPagination = const []}) {
     questionPagination = [];
     questionPagination.addAll(lastQuestionPagination);
@@ -37,16 +39,35 @@ class _MoodHomeState extends State<MoodHome> {
           questionPagination.add(MoodRatingBar(
             title: question['title'],
             colors: question['options'],
+            onAnswer: (String answer) {
+              answerTemp = {
+                question['title']: [answer],
+              };
+              print('cuttent answer $answerTemp');
+            },
           ));
           break;
         case "posNegMood":
-          questionPagination.add(const PosNegMood());
+          questionPagination.add(PosNegMood(
+            onAnswer: (List pos, List neg) {
+              answerTemp = {
+                '正面情緒': pos,
+                '負面情緒': neg,
+              };
+              print('cuttent answer $answerTemp');
+            },
+          ));
           break;
         case "buttonOptipn":
-          Widget buttonOption = ButtonOptions(
+          questionPagination.add(ButtonOptions(
             title: question['title'],
             options: question['options'],
-            onPressed: (option) {
+            onAnswer: (option) {
+              answerTemp = {
+                question['title']: [option],
+              };
+              print('cuttent answer $answerTemp');
+              answers.add(answerTemp);
               setState(() {
                 makeQuestionPagination(
                   MoodDoc.questionOrder[option],
@@ -54,40 +75,88 @@ class _MoodHomeState extends State<MoodHome> {
                 );
               });
             },
-          );
-          lastOption = buttonOption;
-          questionPagination.add(buttonOption);
+          ));
           break;
         case "date":
           questionPagination.add(ChoseDate(
             title: question['title'],
+            onAnswer: (date) {
+              answerTemp = {
+                question['title']: [date]
+              };
+              print('cuttent answer $answerTemp');
+            },
           ));
           break;
         case "location":
           questionPagination.add(Locations(
             title: question['title'],
+            onAnswer: (String location) {
+              answerTemp = {
+                question['title']: [location]
+              };
+              print('cuttent answer $answerTemp');
+            },
           ));
           break;
         case "optionWheel":
           questionPagination.add(WheelChoose(
             title: question['title'],
             options: question['options'],
+            onAnswer: (List answer) {
+              answerTemp = {
+                question['title']: answer,
+              };
+              print('cuttent answer $answerTemp');
+            },
           ));
           break;
         case "form":
           questionPagination.add(ShortAnswer(
             title: question['title'],
+            onAnswer: (String answer) {
+              answerTemp = {
+                question['title']: [answer],
+              };
+              print('cuttent answer $answerTemp');
+            },
           ));
           break;
         case "using":
           questionPagination.add(Used(
             title: question['title'],
+            onAnswer: (Map answer) {
+              answerTemp = {
+                question['title']: [answer],
+              };
+              print('cuttent answer $answerTemp');
+            },
           ));
           break;
       }
     }
-    print(questionPagination);
     return questionPagination;
+  }
+
+  Widget moodHomeBottom() {
+    return questionPagination[pageIndex] is! ButtonOptions //
+        ? pageIndex == questionPagination.length - 1 && pageIndex != 0
+            ? SendUp(onTap: () {
+                if (answers.length < questionPagination.length) {
+                  answers.add(answerTemp);
+                }
+                print('all answers: $answers');
+              })
+            : NextQuestion(onTap: () {
+                if (pageIndex < questionPagination.length - 1) {
+                  setState(() {
+                    pageIndex++;
+                    answers.add(answerTemp);
+                    answerTemp = {};
+                  });
+                }
+              })
+        : const SizedBox();
   }
 
   @override
@@ -96,10 +165,8 @@ class _MoodHomeState extends State<MoodHome> {
     makeQuestionPagination(MoodDoc.questionOrder['main']);
   }
 
-  int pageIndex = 0;
   @override
   Widget build(BuildContext context) {
-    print('page index: $pageIndex');
     double topPadding = MediaQuery.of(context).padding.top;
     return Scaffold(
       body: Container(
@@ -122,6 +189,7 @@ class _MoodHomeState extends State<MoodHome> {
                               });
                             } else if (pageIndex < questionPagination.length) {
                               setState(() {
+                                answers.removeLast();
                                 pageIndex--;
                               });
                             }
@@ -131,15 +199,7 @@ class _MoodHomeState extends State<MoodHome> {
                       ]),
                     ),
               Expanded(child: questionPagination[pageIndex]),
-              pageIndex == questionPagination.length - 1 && pageIndex != 0
-                  ? SendUp(onTap: () {})
-                  : NextQuestion(onTap: () {
-                      if (pageIndex < questionPagination.length - 1) {
-                        setState(() {
-                          pageIndex++;
-                        });
-                      }
-                    })
+              moodHomeBottom()
             ],
           )),
     );

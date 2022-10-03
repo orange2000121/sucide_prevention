@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:sucide_prevention/choose_mood/doc/mood_data.dart';
+import 'package:sucide_prevention/choose_mood/doc/questions.dart';
 import 'package:sucide_prevention/utils.dart';
 
 class PosNegMood extends StatefulWidget {
-  const PosNegMood({Key? key}) : super(key: key);
+  ///回傳正面情緒與負面情緒的所有選擇選項
+  final Function(List pos, List neg) onAnswer;
+  const PosNegMood({Key? key, required this.onAnswer}) : super(key: key);
 
   @override
   State<PosNegMood> createState() => _PosNegMoodState();
@@ -12,23 +14,39 @@ class PosNegMood extends StatefulWidget {
 class _PosNegMoodState extends State<PosNegMood> {
   final TextStyle buttonTextStyle = const TextStyle(fontSize: 25);
   bool isPositive = true;
+
+  ///每個正面選項是否被選擇
   late List<bool> isPosItemSelected;
+
+  ///每個負面選項是否被選擇
   late List<bool> isNegItemSelected;
+
+  List<String> getSelectedMood(isItemSelected, moodData) {
+    List<String> selectedMood = [];
+    for (int i = 0; i < isItemSelected.length; i++) {
+      if (isItemSelected[i]) {
+        selectedMood.add(moodData[i]);
+      }
+    }
+    return selectedMood;
+  }
+
   @override
   void initState() {
     super.initState();
-    isPosItemSelected = List.generate(moodData['positive'].length, (index) => false);
-    isNegItemSelected = List.generate(moodData['negative'].length, (index) => false);
+    isPosItemSelected = List.generate(MoodDoc.moodData['positive'].length, (index) => false);
+    isNegItemSelected = List.generate(MoodDoc.moodData['negative'].length, (index) => false);
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> posText = List.generate(moodData['positive'].length, (index) {
+    List<Widget> posText = List.generate(MoodDoc.moodData['positive'].length, (index) {
       return Center(
           child: ElevatedButton(
         onPressed: () {
           setState(() {
             isPosItemSelected[index] = !isPosItemSelected[index];
+            widget.onAnswer(getSelectedMood(isPosItemSelected, MoodDoc.moodData['positive']), getSelectedMood(isNegItemSelected, MoodDoc.moodData['negative']));
           });
         },
         style: ElevatedButton.styleFrom(
@@ -40,12 +58,12 @@ class _PosNegMoodState extends State<PosNegMood> {
           ),
         ),
         child: Text(
-          moodData['positive'][index],
+          MoodDoc.moodData['positive'][index],
           style: ThemeText.buttonStyle,
         ),
       ));
     });
-    List<Widget> negText = List.generate(moodData['negative'].length, (index) {
+    List<Widget> negText = List.generate(MoodDoc.moodData['negative'].length, (index) {
       return Center(
           child: ElevatedButton(
         onPressed: () {
@@ -62,13 +80,12 @@ class _PosNegMoodState extends State<PosNegMood> {
           ),
         ),
         child: Text(
-          moodData['negative'][index],
+          MoodDoc.moodData['negative'][index],
           style: ThemeText.buttonStyle,
         ),
       ));
     });
-    return Expanded(
-        child: Column(
+    return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -83,13 +100,13 @@ class _PosNegMoodState extends State<PosNegMood> {
                       onPressed: () => setState(() {
                             isPositive = true;
                           }),
-                      style: ThemeButton.ovalButton,
+                      style: isPositive ? ThemeButton.ovalButtonSelect : ThemeButton.ovalButtonUnselect,
                       child: Text('正面情緒', style: buttonTextStyle)),
                   ElevatedButton(
                       onPressed: () => setState(() {
                             isPositive = false;
                           }),
-                      style: ThemeButton.ovalButton,
+                      style: isPositive ? ThemeButton.ovalButtonUnselect : ThemeButton.ovalButtonSelect,
                       child: Text('負面情緒', style: buttonTextStyle)),
                 ],
               ),
@@ -108,6 +125,6 @@ class _PosNegMoodState extends State<PosNegMood> {
           ),
         )
       ],
-    ));
+    );
   }
 }
