@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_launcher_icons: ^0.10.0
   syncfusion_flutter_datepicker: ^20.2.50
+  cloud_firestore: ^3.5.0
   # google_sign_in: ^5.4.1
 
 dev_dependencies:

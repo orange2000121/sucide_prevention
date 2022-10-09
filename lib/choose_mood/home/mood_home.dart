@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sucide_prevention/choose_mood/components/chose_date.dart';
 import 'package:sucide_prevention/choose_mood/components/locations.dart';
@@ -8,7 +9,8 @@ import 'package:sucide_prevention/choose_mood/components/short_answer.dart';
 import 'package:sucide_prevention/choose_mood/components/used.dart';
 import 'package:sucide_prevention/choose_mood/components/wheel_chose.dart';
 import 'package:sucide_prevention/choose_mood/doc/questions.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'package:sucide_prevention/tool/firestore.dart';
 import 'package:sucide_prevention/utils.dart';
 
 class MoodHome extends StatefulWidget {
@@ -27,7 +29,7 @@ class _MoodHomeState extends State<MoodHome> {
 
   List<Widget> questionPagination = [];
   int pageIndex = 0;
-  List<Map> answers = [];
+  List<Map<String, dynamic>> answers = [];
   Map<String, List> answerTemp = {};
   List<Widget> makeQuestionPagination(List questions, {List<Widget> lastQuestionPagination = const []}) {
     questionPagination = [];
@@ -141,11 +143,16 @@ class _MoodHomeState extends State<MoodHome> {
   Widget moodHomeBottom() {
     return questionPagination[pageIndex] is! ButtonOptions //
         ? pageIndex == questionPagination.length - 1 && pageIndex != 0
-            ? SendUp(onTap: () {
+            ? SendUp(onTap: () async {
                 if (answers.length < questionPagination.length) {
                   answers.add(answerTemp);
                 }
-                print('all answers: $answers');
+                FirebaseFirestore db = FirebaseFirestore.instance;
+                String now = DateTime.now().toString();
+                var doc = db.collection("user1").doc(now);
+                for (int i = 0; i < answers.length; i++) {
+                  await doc.set(answers[i], SetOptions(merge: true));
+                }
               })
             : NextQuestion(onTap: () {
                 if (pageIndex < questionPagination.length - 1) {
