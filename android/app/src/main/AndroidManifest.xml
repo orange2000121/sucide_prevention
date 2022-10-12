@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sucide_prevention">
    <application
-        android:label="sucide_prevention"
+        android:label="自殺防治"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
