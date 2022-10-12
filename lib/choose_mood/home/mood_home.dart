@@ -9,8 +9,7 @@ import 'package:sucide_prevention/choose_mood/components/short_answer.dart';
 import 'package:sucide_prevention/choose_mood/components/used.dart';
 import 'package:sucide_prevention/choose_mood/components/wheel_chose.dart';
 import 'package:sucide_prevention/choose_mood/doc/questions.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:sucide_prevention/tool/firestore.dart';
+import 'package:sucide_prevention/home/home_page.dart';
 import 'package:sucide_prevention/utils.dart';
 
 class MoodHome extends StatefulWidget {
@@ -76,6 +75,7 @@ class _MoodHomeState extends State<MoodHome> {
                   lastQuestionPagination: questionPagination.sublist(0, ++pageIndex),
                 );
               });
+              answerTemp = {};
             },
           ));
           break;
@@ -144,23 +144,39 @@ class _MoodHomeState extends State<MoodHome> {
     return questionPagination[pageIndex] is! ButtonOptions //
         ? pageIndex == questionPagination.length - 1 && pageIndex != 0
             ? SendUp(onTap: () async {
+                if (answerTemp.isEmpty) {
+                  print('no answer');
+                  return;
+                }
+
                 if (answers.length < questionPagination.length) {
                   answers.add(answerTemp);
                 }
+                print('start db');
                 FirebaseFirestore db = FirebaseFirestore.instance;
                 String now = DateTime.now().toString();
+                print('get doc');
                 var doc = db.collection("user1").doc(now);
+                print('set data');
                 for (int i = 0; i < answers.length; i++) {
                   await doc.set(answers[i], SetOptions(merge: true));
+                  print('set data done');
                 }
+                if (!mounted) return;
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const HomePage()), (route) => false);
               })
             : NextQuestion(onTap: () {
                 if (pageIndex < questionPagination.length - 1) {
-                  setState(() {
-                    pageIndex++;
-                    answers.add(answerTemp);
-                    answerTemp = {};
-                  });
+                  if (answerTemp.isNotEmpty) {
+                    setState(() {
+                      pageIndex++;
+                      answers.add(answerTemp);
+                      answerTemp = {};
+                    });
+                  } else {
+                    print('anwers: $answers');
+                    print('page index: $pageIndex');
+                  }
                 }
               })
         : const SizedBox();

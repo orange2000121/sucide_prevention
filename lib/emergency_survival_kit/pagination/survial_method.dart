@@ -14,9 +14,6 @@ class _SurvialMethodState extends State<SurvialMethod> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('緊急救生包'),
-      ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
@@ -34,14 +31,28 @@ class _SurvialMethodState extends State<SurvialMethod> {
                 contents.add(Text(method[i], style: ThemeText.subtitleStyle));
               }
               return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('方法${widget.methodNum + 1}: $title', style: ThemeText.titleStyle),
+                    padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+                    child: Column(
+                      children: [
+                        Row(children: [
+                          IconButton(
+                            iconSize: 40,
+                            onPressed: () => Navigator.pop(context),
+                            icon: const Icon(Icons.keyboard_double_arrow_left),
+                          )
+                        ]),
+                        Text('方法${widget.methodNum + 1}: $title', style: ThemeText.titleStyle),
+                      ],
+                    ),
                   ),
                   ...contents,
-                  Image.asset(image, width: MediaQuery.of(context).size.width - 50, height: 200)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 50),
+                    child: Image.asset(image, width: MediaQuery.of(context).size.width - 50, height: 200),
+                  )
                 ],
               );
             } else {

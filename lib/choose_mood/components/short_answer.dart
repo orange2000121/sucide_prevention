@@ -30,9 +30,8 @@ class _ShortAnswerState extends State<ShortAnswer> {
               ),
               hintText: '你的心情...',
             ),
-            onSubmitted: (value) {
-              widget.onAnswer(value);
-            },
+            onSubmitted: (value) => widget.onAnswer(value),
+            onChanged: (value) => widget.onAnswer(value),
           ),
         ),
         const SizedBox(),

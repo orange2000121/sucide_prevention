@@ -78,11 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   width: 300,
                   child: TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: '密碼',
-                      hintStyle: TextStyle(fontSize: 18),
-                      border: ThemeBorder.inputBorder,
-                    ),
+                    decoration: const InputDecoration(labelText: '密碼', hintStyle: TextStyle(fontSize: 18), border: ThemeBorder.inputBorder),
                   ),
                 ),
                 const SizedBox(height: 20),

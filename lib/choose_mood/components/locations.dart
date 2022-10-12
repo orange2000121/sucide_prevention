@@ -11,6 +11,15 @@ class Locations extends StatefulWidget {
 }
 
 class _LocationsState extends State<Locations> {
+  String select = '';
+
+  void _onAnswer(String location) {
+    setState(() {
+      widget.onAnswer(location);
+      select = location;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
@@ -20,10 +29,10 @@ class _LocationsState extends State<Locations> {
         Text(widget.title, style: ThemeText.titleStyle),
         Column(
           children: [
-            LocationButton(title: '溫暖的家', iconPath: 'resources/image/button/location/home.png', onPressed: (title) => widget.onAnswer(title)),
-            LocationButton(title: '公司', iconPath: 'resources/image/button/location/company.png', onPressed: (title) => widget.onAnswer(title)),
-            LocationButton(title: '學校', iconPath: 'resources/image/button/location/school.png', onPressed: (title) => widget.onAnswer(title)),
-            LocationButton(title: '朋友家', iconPath: 'resources/image/button/location/friend.png', onPressed: (title) => widget.onAnswer(title)),
+            LocationButton(title: '溫暖的家', select: select, iconPath: 'resources/image/button/location/house.png', onPressed: (title) => _onAnswer(title)),
+            LocationButton(title: '公司', select: select, iconPath: 'resources/image/button/location/employee.png', onPressed: (title) => _onAnswer(title)),
+            LocationButton(title: '學校', select: select, iconPath: 'resources/image/button/location/school.png', onPressed: (title) => _onAnswer(title)),
+            LocationButton(title: '朋友家', select: select, iconPath: 'resources/image/button/location/friend.png', onPressed: (title) => _onAnswer(title)),
             Padding(
               padding: EdgeInsets.fromLTRB(h * 0.13, 0, 0, 0),
               child: Row(
@@ -60,8 +69,9 @@ class _LocationsState extends State<Locations> {
 class LocationButton extends StatelessWidget {
   final String title;
   final String iconPath;
+  final String select;
   final Function(String title) onPressed;
-  const LocationButton({Key? key, required this.title, required this.iconPath, required this.onPressed}) : super(key: key);
+  const LocationButton({Key? key, required this.title, required this.iconPath, required this.onPressed, required this.select}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +83,14 @@ class LocationButton extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(h * 0.1, 0, 0, 0),
         child: Row(
           children: [
-            Image.asset(iconPath, width: h * 0.12),
+            Container(
+                padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: select == title ? const Color(0xffDDEBEB) : Colors.transparent,
+                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                ),
+                child: Image.asset(iconPath, width: h * 0.08)),
             const SizedBox(width: 10),
             Text(title, style: ThemeText.subtitleStyle),
           ],
