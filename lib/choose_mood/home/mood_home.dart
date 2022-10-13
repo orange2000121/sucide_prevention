@@ -152,16 +152,10 @@ class _MoodHomeState extends State<MoodHome> {
                 if (answers.length < questionPagination.length) {
                   answers.add(answerTemp);
                 }
-                print('start db');
                 FirebaseFirestore db = FirebaseFirestore.instance;
                 String now = DateTime.now().toString();
-                print('get doc');
-                var doc = db.collection("user1").doc(now);
-                print('set data');
-                for (int i = 0; i < answers.length; i++) {
-                  await doc.set(answers[i], SetOptions(merge: true));
-                  print('set data done');
-                }
+                //Todo: 更換使用者ID
+                await db.collection("user3").doc('mood').set({now: answers});
                 if (!mounted) return;
                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const HomePage()), (route) => false);
               })
