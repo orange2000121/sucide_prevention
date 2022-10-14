@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:sucide_prevention/auth/home/login_page.dart';
 import 'package:sucide_prevention/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sucide_prevention/auth.dart';
 
-import '../home/login_page.dart';
-
-class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({Key? key}) : super(key: key);
+class createaccount extends StatefulWidget {
+  const createaccount({Key? key}) : super(key: key);
 
   @override
-  State<ForgotPassword> createState() => _ForgotPasswordState();
+  State<createaccount> createState() => _createaccountState();
 }
 
-class _ForgotPasswordState extends State<ForgotPassword> {
+class _createaccountState extends State<createaccount> {
   final AuthService auth = AuthService();
-  TextEditingController emailreset = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               SizedBox(
                 width: 300,
                 child: TextFormField(
-                  controller: emailreset,
+                  controller: email,
                   decoration: const InputDecoration(
                     border: ThemeBorder.inputBorder,
                     labelText: '聯絡信箱',
@@ -46,9 +46,20 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 ),
               ),
               const SizedBox(height: 20),
+              SizedBox(
+                width: 300,
+                child: TextFormField(
+                  controller: password,
+                  decoration: const InputDecoration(
+                    border: ThemeBorder.inputBorder,
+                    labelText: '密碼',
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
               InkWell(
                 onTap: () async {
-                  final status = await auth.resetpassword(emailreset);
+                  final status = await auth.signupwithemail(email, password);
                   if (status) {
                     Navigator.push(
                         context,
@@ -57,7 +68,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         ));
                   }
                 },
-                child: const Text('發送至信箱', style: ThemeText.buttonStyle),
+                child: const Text('註冊', style: ThemeText.buttonStyle),
               ),
             ],
           ),

@@ -1,4 +1,6 @@
 {
-    "xd.lastPackage": "/Users/xuziting/Downloads/test1",
-    "xd.globalEditor": false
+  "xd.lastPackage": "/Users/xuziting/Downloads/test1",
+  "xd.globalEditor": false,
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "cmake.sourceDirectory": "${workspaceFolder}/linux"
 }

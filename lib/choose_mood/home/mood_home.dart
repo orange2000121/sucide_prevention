@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sucide_prevention/choose_mood/components/chose_date.dart';
 import 'package:sucide_prevention/choose_mood/components/locations.dart';
@@ -12,6 +13,7 @@ import 'package:sucide_prevention/choose_mood/doc/questions.dart';
 import 'package:sucide_prevention/home/home_page.dart';
 import 'package:sucide_prevention/utils.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sucide_prevention/auth.dart';
 
 class MoodHome extends StatefulWidget {
   const MoodHome({Key? key}) : super(key: key);
@@ -26,6 +28,8 @@ class _MoodHomeState extends State<MoodHome> {
   /// args : List<int> questions
   ///
   /// return : List<Widget> pages
+  ///
+  final AuthService auth = AuthService();
 
   List<Widget> questionPagination = [];
   int pageIndex = 0;
@@ -158,7 +162,7 @@ class _MoodHomeState extends State<MoodHome> {
                 FirebaseFirestore db = FirebaseFirestore.instance;
                 String now = DateTime.now().toString();
                 //Todo: 更換使用者ID
-                await db.collection("user3").doc('mood').set({now: answers}, SetOptions(merge: true));
+                await db.collection(auth.getuserdata()).doc('mood').set({now: answers}, SetOptions(merge: true));
                 Fluttertoast.cancel();
                 if (!mounted) return;
                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const HomePage()), (route) => false);
