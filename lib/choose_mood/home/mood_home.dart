@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sucide_prevention/choose_mood/components/chose_date.dart';
 import 'package:sucide_prevention/choose_mood/components/locations.dart';
@@ -12,6 +13,7 @@ import 'package:sucide_prevention/choose_mood/doc/questions.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sucide_prevention/tool/firestore.dart';
 import 'package:sucide_prevention/utils.dart';
+import 'package:sucide_prevention/auth.dart';
 
 class MoodHome extends StatefulWidget {
   const MoodHome({Key? key}) : super(key: key);
@@ -26,12 +28,15 @@ class _MoodHomeState extends State<MoodHome> {
   /// args : List<int> questions
   ///
   /// return : List<Widget> pages
+  ///
+  final AuthService auth = AuthService();
 
   List<Widget> questionPagination = [];
   int pageIndex = 0;
   List<Map<String, dynamic>> answers = [];
   Map<String, List> answerTemp = {};
-  List<Widget> makeQuestionPagination(List questions, {List<Widget> lastQuestionPagination = const []}) {
+  List<Widget> makeQuestionPagination(List questions,
+      {List<Widget> lastQuestionPagination = const []}) {
     questionPagination = [];
     questionPagination.addAll(lastQuestionPagination);
     for (int i = 0; i < questions.length; i++) {
@@ -73,7 +78,8 @@ class _MoodHomeState extends State<MoodHome> {
               setState(() {
                 makeQuestionPagination(
                   MoodDoc.questionOrder[option],
-                  lastQuestionPagination: questionPagination.sublist(0, ++pageIndex),
+                  lastQuestionPagination:
+                      questionPagination.sublist(0, ++pageIndex),
                 );
               });
             },
@@ -149,7 +155,7 @@ class _MoodHomeState extends State<MoodHome> {
                 }
                 FirebaseFirestore db = FirebaseFirestore.instance;
                 String now = DateTime.now().toString();
-                var doc = db.collection("user1").doc(now);
+                var doc = db.collection(auth.getuserdata()).doc(now);
                 for (int i = 0; i < answers.length; i++) {
                   await doc.set(answers[i], SetOptions(merge: true));
                 }
@@ -178,7 +184,11 @@ class _MoodHomeState extends State<MoodHome> {
     return Scaffold(
       body: Container(
           width: MediaQuery.of(context).size.width,
-          decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('resources/image/background/splash_background.png'), fit: BoxFit.cover)),
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(
+                      'resources/image/background/splash_background.png'),
+                  fit: BoxFit.cover)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -192,7 +202,8 @@ class _MoodHomeState extends State<MoodHome> {
                           onPressed: () {
                             if (pageIndex == 0) {
                               setState(() {
-                                makeQuestionPagination(MoodDoc.questionOrder['main']);
+                                makeQuestionPagination(
+                                    MoodDoc.questionOrder['main']);
                               });
                             } else if (pageIndex < questionPagination.length) {
                               setState(() {

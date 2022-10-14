@@ -3,6 +3,9 @@ import 'package:sucide_prevention/auth/components/google_login.dart';
 import 'package:sucide_prevention/home/home_page.dart';
 import 'package:sucide_prevention/utils.dart';
 import 'package:sucide_prevention/auth/pagination/fogot_password.dart';
+import 'package:sucide_prevention/auth/pagination/createaccount.dart';
+
+import '../../auth.dart'; //這裡是相對路徑，要注意
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -12,13 +15,19 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+
+  final AuthService auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("resources/image/background/splash_background.png"),
+            image:
+                AssetImage("resources/image/background/splash_background.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -26,7 +35,8 @@ class _LoginPageState extends State<LoginPage> {
           child: Container(
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              border: Border.all(width: 1, color: const Color.fromARGB(65, 112, 112, 112)),
+              border: Border.all(
+                  width: 1, color: const Color.fromARGB(65, 112, 112, 112)),
               color: const Color.fromARGB(90, 255, 255, 255),
               borderRadius: const BorderRadius.all(Radius.circular(30)),
             ),
@@ -49,13 +59,16 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       child: const Text('忘記密碼', style: ThemeText.titleStyle),
                     ),
-                    Container(alignment: Alignment.center, width: 20, child: const Text('/', style: ThemeText.titleStyle)),
+                    Container(
+                        alignment: Alignment.center,
+                        width: 20,
+                        child: const Text('/', style: ThemeText.titleStyle)),
                     InkWell(
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const HomePage(),
+                            builder: (context) => const createaccount(),
                           ),
                         );
                       },
@@ -67,6 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   width: 300,
                   child: TextFormField(
+                    controller: email,
                     decoration: const InputDecoration(
                       labelText: '帳號',
                       hintStyle: TextStyle(fontSize: 18),
@@ -78,6 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   width: 300,
                   child: TextFormField(
+                    controller: password,
                     decoration: const InputDecoration(
                       labelText: '密碼',
                       hintStyle: TextStyle(fontSize: 18),
@@ -87,19 +102,30 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 20),
                 InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HomePage(),
-                      ),
-                    );
+                  onTap: () async {
+                    final check = await auth.signinwithemail(email, password);
+                    if (check) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HomePage(),
+                        ),
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginPage(),
+                        ),
+                      );
+                    }
                   },
                   child: Container(
                     width: 300,
                     height: 60,
                     decoration: BoxDecoration(
-                      border: Border.all(width: 1, color: const Color(0xff707070)),
+                      border:
+                          Border.all(width: 1, color: const Color(0xff707070)),
                       borderRadius: const BorderRadius.all(Radius.circular(30)),
                     ),
                     child: const Center(
@@ -121,7 +147,9 @@ class _LoginPageState extends State<LoginPage> {
                         width: 80,
                         height: 80,
                         decoration: const BoxDecoration(
-                          image: DecorationImage(image: AssetImage('resources/image/button/apple__4_-removebg-preview.png')),
+                          image: DecorationImage(
+                              image: AssetImage(
+                                  'resources/image/button/apple__4_-removebg-preview.png')),
                         ),
                       ),
                     ),
