@@ -20,6 +20,7 @@ class _MoodRatingBarState extends State<MoodRatingBar> {
   @override
   void initState() {
     super.initState();
+    widget.onAnswer(rating.toString());
   }
 
   @override

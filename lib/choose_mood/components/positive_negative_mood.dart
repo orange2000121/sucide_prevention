@@ -36,6 +36,7 @@ class _PosNegMoodState extends State<PosNegMood> {
     super.initState();
     isPosItemSelected = List.generate(MoodDoc.moodData['positive'].length, (index) => false);
     isNegItemSelected = List.generate(MoodDoc.moodData['negative'].length, (index) => false);
+    widget.onAnswer(getSelectedMood(isPosItemSelected, MoodDoc.moodData['positive']), getSelectedMood(isNegItemSelected, MoodDoc.moodData['negative']));
   }
 
   @override

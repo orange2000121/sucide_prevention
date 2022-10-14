@@ -11,6 +11,7 @@ import 'package:sucide_prevention/choose_mood/components/wheel_chose.dart';
 import 'package:sucide_prevention/choose_mood/doc/questions.dart';
 import 'package:sucide_prevention/home/home_page.dart';
 import 'package:sucide_prevention/utils.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class MoodHome extends StatefulWidget {
   const MoodHome({Key? key}) : super(key: key);
@@ -146,16 +147,19 @@ class _MoodHomeState extends State<MoodHome> {
             ? SendUp(onTap: () async {
                 if (answerTemp.isEmpty) {
                   print('no answer');
+                  Fluttertoast.showToast(msg: '需填寫問題');
                   return;
                 }
 
                 if (answers.length < questionPagination.length) {
                   answers.add(answerTemp);
                 }
+                Fluttertoast.showToast(msg: 'wait');
                 FirebaseFirestore db = FirebaseFirestore.instance;
                 String now = DateTime.now().toString();
                 //Todo: 更換使用者ID
-                await db.collection("user3").doc('mood').set({now: answers});
+                await db.collection("user3").doc('mood').set({now: answers}, SetOptions(merge: true));
+                Fluttertoast.cancel();
                 if (!mounted) return;
                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const HomePage()), (route) => false);
               })
@@ -170,6 +174,7 @@ class _MoodHomeState extends State<MoodHome> {
                   } else {
                     print('anwers: $answers');
                     print('page index: $pageIndex');
+                    Fluttertoast.showToast(msg: '需填寫問題');
                   }
                 }
               })

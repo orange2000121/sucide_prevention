@@ -24,6 +24,7 @@ class _WheelChooseState extends State<WheelChoose> {
     for (int i = 0; i < widget.options.length; i++) {
       answer.add(widget.options[i][0]);
     }
+    widget.onAnswer(answer);
   }
 
   @override

@@ -18,6 +18,12 @@ class _UsedState extends State<Used> {
     '備註': '',
   };
   @override
+  void initState() {
+    super.initState();
+    widget.onAnswer(answer);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

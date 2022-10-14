@@ -12,6 +12,12 @@ class ShortAnswer extends StatefulWidget {
 
 class _ShortAnswerState extends State<ShortAnswer> {
   @override
+  void initState() {
+    super.initState();
+    widget.onAnswer('');
+  }
+
+  @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     return Column(

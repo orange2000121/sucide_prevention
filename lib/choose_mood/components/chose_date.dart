@@ -13,6 +13,12 @@ class ChoseDate extends StatefulWidget {
 
 class _ChoseDateState extends State<ChoseDate> {
   @override
+  void initState() {
+    super.initState();
+    widget.onAnswer(DateTime.now().toString());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
