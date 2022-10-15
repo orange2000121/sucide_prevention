@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sucide_prevention/auth.dart';
 import 'package:sucide_prevention/auth/home/login_page.dart';
+import 'package:sucide_prevention/home/home_page.dart';
 import 'package:sucide_prevention/splash_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -31,9 +33,15 @@ class MyApp extends StatelessWidget {
 
         // Main
         else {
-          return const MaterialApp(
-            home: LoginPage(),
-          );
+          if (AuthService().getuserdata() == null) {
+            return const MaterialApp(
+              home: LoginPage(),
+            );
+          } else {
+            return const MaterialApp(
+              home: HomePage(),
+            );
+          }
         }
       },
     );

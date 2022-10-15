@@ -11,8 +11,8 @@ enum authstatus {
 }
 
 class AuthService {
-  Future<bool> signupwithemail(EmailAddress, password) async {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(email: EmailAddress.text, password: password.text);
+  Future<bool> signupwithemail(emailAddress, password) async {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailAddress.text, password: password.text);
     return true;
   }
 
@@ -56,7 +56,7 @@ class AuthService {
   //get user data
   getuserdata() {
     if (FirebaseAuth.instance.currentUser != null) {
-      print(FirebaseAuth.instance.currentUser);
+      // print(FirebaseAuth.instance.currentUser);
       return FirebaseAuth.instance.currentUser?.email;
     }
   }

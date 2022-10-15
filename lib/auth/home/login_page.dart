@@ -87,6 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   width: 300,
                   child: TextFormField(
+                    obscureText: true,
                     controller: password,
                     decoration: const InputDecoration(
                       labelText: '密碼',

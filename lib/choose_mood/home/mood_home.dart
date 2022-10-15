@@ -146,23 +146,25 @@ class _MoodHomeState extends State<MoodHome> {
   }
 
   Widget moodHomeBottom() {
-    return questionPagination[pageIndex] is! ButtonOptions //
-        ? pageIndex == questionPagination.length - 1 && pageIndex != 0
+    return questionPagination[pageIndex] is! ButtonOptions //如果是ButtonOptions，就不顯示下一步及送出
+        ? pageIndex == questionPagination.length - 1 && pageIndex != 0 //如果是最後一頁，就顯示送出
             ? SendUp(onTap: () async {
                 if (answerTemp.isEmpty) {
-                  print('no answer');
                   Fluttertoast.showToast(msg: '需填寫問題');
                   return;
                 }
 
                 if (answers.length < questionPagination.length) {
+                  //加入最後ㄧ個問題的回答
                   answers.add(answerTemp);
                 }
+
                 Fluttertoast.showToast(msg: 'wait');
+                // firestore 上傳
                 FirebaseFirestore db = FirebaseFirestore.instance;
                 String now = DateTime.now().toString();
-                //Todo: 更換使用者ID
                 await db.collection(auth.getuserdata()).doc('mood').set({now: answers}, SetOptions(merge: true));
+
                 Fluttertoast.cancel();
                 if (!mounted) return;
                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const HomePage()), (route) => false);

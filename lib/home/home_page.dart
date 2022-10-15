@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sucide_prevention/auth/home/user_profile.dart';
 import 'package:sucide_prevention/choose_mood/home/mood_home.dart';
 import 'package:sucide_prevention/emergency_survival_kit/home/emergency_survival_home.dart';
 
@@ -14,7 +15,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _pages = const [
     MoodHome(),
     SurvialHome(),
-    Center(child: Text('page3')),
+    UserProfile(),
   ];
   @override
   Widget build(BuildContext context) {
