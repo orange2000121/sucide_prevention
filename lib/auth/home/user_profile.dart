@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sucide_prevention/auth.dart';
 import 'package:sucide_prevention/auth/home/login_page.dart';
 import 'package:sucide_prevention/utils.dart';
@@ -13,6 +14,23 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends State<UserProfile> {
   final AuthService auth = AuthService();
+  final prefs = SharedPreferences.getInstance();
+  final watchNumberController = TextEditingController();
+  bool lock = true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    prefs.then((pregs) {
+      watchNumberController.text = pregs.getString('watchNumber') ?? '';
+      if (watchNumberController.text.isEmpty) {
+        // unlock the text field
+        setState(() => lock = false);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -60,17 +78,54 @@ class _UserProfileState extends State<UserProfile> {
                     children: [
                       Image.asset('resources/image/grid (1).png'),
                       const Text('手錶編號 ： ', style: ThemeText.contentStyle),
-                      const SizedBox(
+                      SizedBox(
                         width: 172,
                         height: 40,
                         child: TextField(
-                          decoration: InputDecoration(
+                          controller: watchNumberController,
+                          readOnly: lock,
+                          decoration: const InputDecoration(
                             filled: true,
                             fillColor: Color(0xffF8F8F8),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.all(Radius.circular(50.0)),
                             ),
                           ),
+                          onChanged: (value) {
+                            prefs.then((pregs) {
+                              pregs.setString('watchNumber', value);
+                            });
+                          },
+                          onSubmitted: (value) {
+                            prefs.then((pregs) {
+                              pregs.setString('watchNumber', value);
+                            });
+                            setState(() => lock = true);
+                          },
+                          onTap: () async {
+                            //todo : unlock the text field
+                            print('before lock: $lock');
+                            if (lock) {
+                              lock = (await showDialog<bool>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('確定更改手錶編號？'),
+                                  // content: const Text('AlertDialog description'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context, true),
+                                      child: const Text('取消'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context, false),
+                                      child: const Text('確認'),
+                                    ),
+                                  ],
+                                ),
+                              ))!;
+                              setState(() {});
+                            }
+                          },
                         ),
                       ),
                     ],
