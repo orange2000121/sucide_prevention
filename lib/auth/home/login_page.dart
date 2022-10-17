@@ -100,19 +100,18 @@ class _LoginPageState extends State<LoginPage> {
                 InkWell(
                   onTap: () async {
                     final check = await auth.signinwithemail(email, password);
+
                     if (check) {
-                      Navigator.push(
+                      Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const HomePage(),
-                        ),
+                        MaterialPageRoute(builder: (context) => const HomePage()),
+                        (route) => false,
                       );
                     } else {
-                      Navigator.push(
+                      Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginPage(),
-                        ),
+                        MaterialPageRoute(builder: (context) => const LoginPage()),
+                        (route) => false,
                       );
                     }
                   },
