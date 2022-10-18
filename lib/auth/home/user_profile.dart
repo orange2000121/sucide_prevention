@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sucide_prevention/auth.dart';
@@ -15,7 +16,7 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
   final AuthService auth = AuthService();
   final prefs = SharedPreferences.getInstance();
-  final watchNumberController = TextEditingController();
+  final watchIdController = TextEditingController();
   bool lock = true;
   @override
   void initState() {
@@ -23,8 +24,8 @@ class _UserProfileState extends State<UserProfile> {
     super.initState();
 
     prefs.then((pregs) {
-      watchNumberController.text = pregs.getString('watchNumber') ?? '';
-      if (watchNumberController.text.isEmpty) {
+      watchIdController.text = pregs.getString('watchid') ?? '';
+      if (watchIdController.text.isEmpty) {
         // unlock the text field
         setState(() => lock = false);
       }
@@ -82,7 +83,7 @@ class _UserProfileState extends State<UserProfile> {
                         width: 172,
                         height: 40,
                         child: TextField(
-                          controller: watchNumberController,
+                          controller: watchIdController,
                           readOnly: lock,
                           decoration: const InputDecoration(
                             filled: true,
@@ -100,6 +101,10 @@ class _UserProfileState extends State<UserProfile> {
                             prefs.then((pregs) {
                               pregs.setString('watchNumber', value);
                             });
+                            // firestore 上傳更新手錶編號
+                            FirebaseFirestore db = FirebaseFirestore.instance;
+                            db.collection(auth.getuserdata()).doc('profile').set({"watchid": value});
+
                             setState(() => lock = true);
                           },
                           onTap: () async {

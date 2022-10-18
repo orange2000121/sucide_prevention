@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sucide_prevention/auth/components/google_login.dart';
 import 'package:sucide_prevention/home/home_page.dart';
 import 'package:sucide_prevention/utils.dart';
@@ -102,6 +104,16 @@ class _LoginPageState extends State<LoginPage> {
                     final check = await auth.signinwithemail(email, password);
 
                     if (check) {
+                      // firestore 下載更新手錶編號
+                      FirebaseFirestore db = FirebaseFirestore.instance;
+                      var auth = AuthService();
+                      var profile = db.collection(auth.getuserdata()).doc('profile').snapshots().first;
+                      profile.then((value) {
+                        SharedPreferences.getInstance().then((prefs) {
+                          prefs.setString('watchid', value.data()!['watchid']);
+                        });
+                      });
+
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(builder: (context) => const HomePage()),
