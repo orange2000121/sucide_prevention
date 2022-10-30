@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -142,9 +144,11 @@ class _MoodHomeState extends State<MoodHome> {
           break;
       }
     }
+    print(questionPagination);
     return questionPagination;
   }
 
+  PageController pageController = PageController();
   Widget moodHomeBottom() {
     return questionPagination[pageIndex] is! ButtonOptions //如果是ButtonOptions，就不顯示下一步及送出
         ? pageIndex == questionPagination.length - 1 && pageIndex != 0 //如果是最後一頁，就顯示送出
@@ -172,11 +176,14 @@ class _MoodHomeState extends State<MoodHome> {
             : NextQuestion(onTap: () {
                 if (pageIndex < questionPagination.length - 1) {
                   if (answerTemp.isNotEmpty) {
-                    setState(() {
-                      pageIndex++;
-                      answers.add(answerTemp);
-                      answerTemp = {};
-                    });
+                    answers.add(answerTemp);
+                    answerTemp = {};
+                    pageController.animateToPage(
+                      ++pageIndex,
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeInOut,
+                    );
+                    setState(() {});
                   } else {
                     print('anwers: $answers');
                     print('page index: $pageIndex');
@@ -196,6 +203,15 @@ class _MoodHomeState extends State<MoodHome> {
   @override
   Widget build(BuildContext context) {
     double topPadding = MediaQuery.of(context).padding.top;
+    print('page build index: $pageIndex');
+    try {
+      pageController.animateToPage(pageIndex, duration: Duration(milliseconds: 400), curve: Curves.easeInOut); //初始化pageController
+      print('move to page');
+      pageController = PageController(initialPage: pageIndex); //初始化pageController
+      print('initial page index');
+    } catch (e) {
+      pageController = PageController(initialPage: pageIndex); //初始化pageController
+    }
     return Scaffold(
       body: Container(
           width: MediaQuery.of(context).size.width,
@@ -211,22 +227,36 @@ class _MoodHomeState extends State<MoodHome> {
                         IconButton(
                           iconSize: 40,
                           onPressed: () {
-                            if (pageIndex == 0) {
+                            if (pageIndex == 1) {
+                              pageIndex = 0;
                               setState(() {
                                 makeQuestionPagination(MoodDoc.questionOrder['main']);
                               });
                             } else if (pageIndex < questionPagination.length) {
-                              setState(() {
-                                answers.removeLast();
-                                pageIndex--;
-                              });
+                              answers.removeLast();
+                              pageIndex--;
+                              pageController.animateToPage(
+                                pageIndex,
+                                duration: const Duration(milliseconds: 400),
+                                curve: Curves.easeInOut,
+                              );
                             }
                           },
                           icon: const Icon(Icons.keyboard_double_arrow_left),
                         )
                       ]),
                     ),
-              Expanded(child: questionPagination[pageIndex]),
+              Expanded(
+                child: PageView(
+                  controller: pageController,
+                  onPageChanged: (int index) {
+                    print('page : $index');
+                    print('scroll page index: $pageIndex'); //滑動到哪一頁
+                  }, //page改變時，改變pageIndex
+                  // physics: const NeverScrollableScrollPhysics(),
+                  children: questionPagination,
+                ),
+              ),
               moodHomeBottom()
             ],
           )),
