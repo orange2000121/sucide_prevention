@@ -27,6 +27,7 @@ class GradientButton extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: gradient,
         borderRadius: borderRadius,
+        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.25), offset: const Offset(0, 4), blurRadius: 4)],
       ),
       child: ElevatedButton(
         onPressed: onPressed,

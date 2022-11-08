@@ -7,6 +7,7 @@ abstract class ThemeText {
   );
   static const TextStyle subtitleStyle = TextStyle(
     fontSize: 25,
+    color: Colors.black,
   );
   static const TextStyle contentStyle = TextStyle(
     fontSize: 20,
