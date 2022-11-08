@@ -51,7 +51,7 @@ class _LocationsState extends State<Locations> {
                         hintText: '請輸入地點',
                       ),
                       onSubmitted: (value) {
-                        widget.onAnswer(value);
+                        _onAnswer(value);
                       },
                     ),
                   ),
@@ -84,8 +84,8 @@ class LocationButton extends StatelessWidget {
         child: Row(
           children: [
             Container(
-                padding: const EdgeInsets.all(10),
-                margin: const EdgeInsets.all(10),
+                padding: EdgeInsets.all(h * 0.01),
+                margin: EdgeInsets.all(h * 0.005),
                 decoration: BoxDecoration(
                   color: select == title ? const Color(0xffDDEBEB) : Colors.transparent,
                   borderRadius: const BorderRadius.all(Radius.circular(10.0)),

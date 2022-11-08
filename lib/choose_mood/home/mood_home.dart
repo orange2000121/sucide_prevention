@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sucide_prevention/choose_mood/components/chose_date.dart';
 import 'package:sucide_prevention/choose_mood/components/locations.dart';
@@ -249,11 +246,7 @@ class _MoodHomeState extends State<MoodHome> {
               Expanded(
                 child: PageView(
                   controller: pageController,
-                  onPageChanged: (int index) {
-                    print('page : $index');
-                    print('scroll page index: $pageIndex'); //滑動到哪一頁
-                  }, //page改變時，改變pageIndex
-                  // physics: const NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   children: questionPagination,
                 ),
               ),

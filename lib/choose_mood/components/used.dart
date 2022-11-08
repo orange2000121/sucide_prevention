@@ -110,42 +110,43 @@ class _DropdownState extends State<Dropdown> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      // crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(widget.title, style: ThemeText.subtitleStyle),
-        Container(
-          width: MediaQuery.of(context).size.width * 0.65,
-          alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(horizontal: 3.0),
-          margin: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.black),
-            borderRadius: BorderRadius.circular(28),
-            color: Colors.white,
+    double h = MediaQuery.of(context).size.height;
+    return Padding(
+      padding: EdgeInsets.all(h * 0.008),
+      child: Column(
+        children: [
+          Text(widget.title, style: ThemeText.subtitleStyle),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.65,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.circular(28),
+              color: Colors.white,
+            ),
+            child: DropdownButton<String>(
+              value: dropdownValue,
+              icon: const Icon(Icons.arrow_downward),
+              elevation: 30,
+              style: ThemeText.dropDownItem,
+              borderRadius: BorderRadius.circular(10),
+              onChanged: (String? value) {
+                // This is called when the user selects an item.
+                setState(() {
+                  dropdownValue = value!;
+                  widget.onSelect(value);
+                });
+              },
+              items: widget.options.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
           ),
-          child: DropdownButton<String>(
-            value: dropdownValue,
-            icon: const Icon(Icons.arrow_downward),
-            elevation: 30,
-            style: ThemeText.dropDownItem,
-            borderRadius: BorderRadius.circular(10),
-            onChanged: (String? value) {
-              // This is called when the user selects an item.
-              setState(() {
-                dropdownValue = value!;
-                widget.onSelect(value);
-              });
-            },
-            items: widget.options.map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
