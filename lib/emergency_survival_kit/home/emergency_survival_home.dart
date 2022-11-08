@@ -41,12 +41,20 @@ class _SurvialHomeState extends State<SurvialHome> {
                           debugPrint('$index');
                           Navigator.push(context, MaterialPageRoute(builder: (context) => SurvialMethod(methodNum: index)));
                         },
-                        child: Column(
-                          children: [
-                            Text('方法${index + 1}: ${survialTitle[index]}', style: ThemeText.subtitleStyle),
-                            const SizedBox(height: 10),
-                            Image.asset(survialImage![index], width: MediaQuery.of(context).size.width - 50, height: 200),
-                          ],
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: const Color.fromARGB(191, 255, 255, 255),
+                          ),
+                          margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                          child: Column(
+                            children: [
+                              Text('方法${index + 1}: ${survialTitle[index]}', style: ThemeText.subtitleStyle),
+                              const SizedBox(height: 10),
+                              Image.asset(survialImage![index], width: MediaQuery.of(context).size.width - 50, height: 200),
+                            ],
+                          ),
                         ),
                       );
                     },

@@ -23,7 +23,7 @@ class SplashPage extends StatelessWidget {
                 Row(
                   children: const [
                     SizedBox(width: 150),
-                    Text('標語................', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    Text('', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   ],
                 ),
               ],

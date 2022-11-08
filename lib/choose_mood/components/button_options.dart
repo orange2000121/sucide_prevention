@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sucide_prevention/home/components/gradient_button.dart';
 import 'package:sucide_prevention/utils.dart';
 
 class ButtonOptions extends StatefulWidget {
@@ -44,16 +45,25 @@ class OptionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
+    double w = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
-      child: ElevatedButton(
+        padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
+        child: GradientButton(
           onPressed: onPressed,
-          style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-              backgroundColor: MaterialStateProperty.all<Color>(const Color(0xffE0E0E0)),
-              minimumSize: MaterialStateProperty.all<Size>(Size.fromHeight(h * 0.08)),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)))),
-          child: Text(title, style: ThemeText.subtitleStyle)),
-    );
+          width: w * 0.8,
+          height: h * 0.08,
+          borderRadius: BorderRadius.circular(18),
+          gradient: const LinearGradient(colors: [Color(0xffE0E0E0), Color(0xffE7E6E6), Color(0xffEEEBEB)]),
+          child: Text(title, style: ThemeText.subtitleStyle),
+        )
+        //  ElevatedButton(
+        //     onPressed: onPressed,
+        //     style: ButtonStyle(
+        //         foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+        //         backgroundColor: MaterialStateProperty.all<Color>(const Color(0xffE0E0E0)),
+        //         minimumSize: MaterialStateProperty.all<Size>(Size.fromHeight(h * 0.08)),
+        //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)))),
+        //     child: Text(title, style: ThemeText.subtitleStyle)),
+        );
   }
 }

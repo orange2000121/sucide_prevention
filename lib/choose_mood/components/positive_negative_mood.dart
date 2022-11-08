@@ -13,6 +13,7 @@ class PosNegMood extends StatefulWidget {
 
 class _PosNegMoodState extends State<PosNegMood> {
   final TextStyle buttonTextStyle = const TextStyle(fontSize: 25);
+  final Color chosenColor = const Color(0xff94C1C9);
   bool isPositive = true;
 
   ///每個正面選項是否被選擇
@@ -51,7 +52,7 @@ class _PosNegMoodState extends State<PosNegMood> {
           });
         },
         style: ElevatedButton.styleFrom(
-          primary: isPosItemSelected[index] ? const Color(0xffDDEBEB) : Colors.transparent,
+          primary: isPosItemSelected[index] ? chosenColor : Colors.transparent,
           onPrimary: Colors.black,
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(
@@ -73,7 +74,7 @@ class _PosNegMoodState extends State<PosNegMood> {
           });
         },
         style: ElevatedButton.styleFrom(
-          primary: isNegItemSelected[index] ? const Color(0xffDDEBEB) : Colors.transparent,
+          primary: isNegItemSelected[index] ? chosenColor : Colors.transparent,
           onPrimary: Colors.black,
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(
