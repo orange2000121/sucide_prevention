@@ -17,10 +17,14 @@ class _UsedState extends State<Used> {
     '有用程度(1-5)': '1',
     '備註': '',
   };
+  FocusNode focusNode = FocusNode();
   @override
   void initState() {
     super.initState();
     widget.onAnswer(answer);
+    focusNode.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -29,60 +33,68 @@ class _UsedState extends State<Used> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(widget.title, style: ThemeText.titleStyle),
-        Column(
-          children: [
-            Dropdown(
-              title: '有無使用緊急救生包?',
-              options: const ['有', '沒有'],
-              onSelect: (value) {
-                answer['有無使用緊急救生包'] = value;
-                widget.onAnswer(answer);
-              },
-            ),
-            Dropdown(
-              title: '是否使用其他方式？',
-              options: const ['有', '沒有'],
-              onSelect: (value) {
-                answer['是否使用其他方式'] = value;
-                widget.onAnswer(answer);
-              },
-            ),
-            Dropdown(
-              title: '有效程度(1-5)',
-              options: const ['1', '2', '3', '4', '5'],
-              onSelect: (value) {
-                answer['有效程度'] = value;
-                widget.onAnswer(answer);
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.all(3.0),
-              child: Column(
-                // crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('備註', style: ThemeText.subtitleStyle),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.65,
-                    child: TextField(
-                      decoration: const InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: '備註...',
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black),
-                          borderRadius: BorderRadius.all(Radius.circular(28.0)),
-                        ),
-                      ),
-                      onSubmitted: (value) {
-                        answer['備註'] = value;
-                        widget.onAnswer(answer);
-                      },
-                    ),
-                  ),
-                ],
+        Expanded(
+          child: ListView(
+            physics: focusNode.hasFocus ? const ScrollPhysics() : const NeverScrollableScrollPhysics(),
+            children: [
+              Dropdown(
+                title: '有無使用緊急救生包?',
+                options: const ['有', '沒有'],
+                onSelect: (value) {
+                  answer['有無使用緊急救生包'] = value;
+                  widget.onAnswer(answer);
+                },
               ),
-            )
-          ],
+              Dropdown(
+                title: '是否使用其他方式？',
+                options: const ['有', '沒有'],
+                onSelect: (value) {
+                  answer['是否使用其他方式'] = value;
+                  widget.onAnswer(answer);
+                },
+              ),
+              Dropdown(
+                title: '有效程度(1-5)',
+                options: const ['1', '2', '3', '4', '5'],
+                onSelect: (value) {
+                  answer['有效程度'] = value;
+                  widget.onAnswer(answer);
+                },
+              ),
+              Padding(
+                padding: const EdgeInsets.all(3.0),
+                child: Column(
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('備註', style: ThemeText.subtitleStyle),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.65,
+                      child: TextField(
+                        focusNode: focusNode,
+                        decoration: const InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          hintText: '備註...',
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.black),
+                            borderRadius: BorderRadius.all(Radius.circular(28.0)),
+                          ),
+                        ),
+                        onSubmitted: (value) {
+                          answer['備註'] = value;
+                          widget.onAnswer(answer);
+                        },
+                        onChanged: (value) {
+                          answer['備註'] = value;
+                          widget.onAnswer(answer);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
         const SizedBox(),
       ],

@@ -12,11 +12,21 @@ class Locations extends StatefulWidget {
 
 class _LocationsState extends State<Locations> {
   String select = '';
+  FocusNode focusNode = FocusNode();
 
   void _onAnswer(String location) {
     setState(() {
       widget.onAnswer(location);
       select = location;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    focusNode.addListener(() {
+      print('focus');
+      setState(() {});
     });
   }
 
@@ -27,38 +37,41 @@ class _LocationsState extends State<Locations> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(widget.title, style: ThemeText.titleStyle),
-        Column(
-          children: [
-            LocationButton(title: '溫暖的家', select: select, iconPath: 'resources/image/button/location/house.png', onPressed: (title) => _onAnswer(title)),
-            LocationButton(title: '公司', select: select, iconPath: 'resources/image/button/location/employee.png', onPressed: (title) => _onAnswer(title)),
-            LocationButton(title: '學校', select: select, iconPath: 'resources/image/button/location/school.png', onPressed: (title) => _onAnswer(title)),
-            LocationButton(title: '朋友家', select: select, iconPath: 'resources/image/button/location/friend.png', onPressed: (title) => _onAnswer(title)),
-            Padding(
-              padding: EdgeInsets.fromLTRB(h * 0.13, 0, 0, 0),
-              child: Row(
-                children: [
-                  const Text('其他', style: ThemeText.subtitleStyle),
-                  const SizedBox(width: 10),
-                  SizedBox(
-                    width: 150,
-                    child: TextField(
-                      decoration: const InputDecoration(
-                        filled: true,
-                        fillColor: Color(0xffE0E0E0),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        Expanded(
+          child: ListView(
+            physics: focusNode.hasFocus ? const ScrollPhysics() : const NeverScrollableScrollPhysics(),
+            children: [
+              LocationButton(title: '溫暖的家', select: select, iconPath: 'resources/image/button/location/house.png', onPressed: (title) => _onAnswer(title)),
+              LocationButton(title: '公司', select: select, iconPath: 'resources/image/button/location/employee.png', onPressed: (title) => _onAnswer(title)),
+              LocationButton(title: '學校', select: select, iconPath: 'resources/image/button/location/school.png', onPressed: (title) => _onAnswer(title)),
+              LocationButton(title: '朋友家', select: select, iconPath: 'resources/image/button/location/friend.png', onPressed: (title) => _onAnswer(title)),
+              Padding(
+                padding: EdgeInsets.fromLTRB(h * 0.13, 0, 0, 0),
+                child: Row(
+                  children: [
+                    const Text('其他', style: ThemeText.subtitleStyle),
+                    const SizedBox(width: 10),
+                    SizedBox(
+                      width: 150,
+                      child: TextField(
+                        focusNode: focusNode,
+                        decoration: const InputDecoration(
+                          filled: true,
+                          fillColor: Color(0xffE0E0E0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          ),
+                          hintText: '請輸入地點',
                         ),
-                        hintText: '請輸入地點',
+                        onChanged: (value) => _onAnswer(value),
+                        onSubmitted: (value) => _onAnswer(value),
                       ),
-                      onSubmitted: (value) {
-                        _onAnswer(value);
-                      },
                     ),
-                  ),
-                ],
-              ),
-            )
-          ],
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
         const SizedBox(),
       ],
