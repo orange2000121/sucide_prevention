@@ -202,10 +202,8 @@ class _MoodHomeState extends State<MoodHome> {
     double topPadding = MediaQuery.of(context).padding.top;
     print('page build index: $pageIndex');
     try {
-      pageController.animateToPage(pageIndex, duration: Duration(milliseconds: 400), curve: Curves.easeInOut); //初始化pageController
-      print('move to page');
+      pageController.animateToPage(pageIndex, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut); // 換頁動畫
       pageController = PageController(initialPage: pageIndex); //初始化pageController
-      print('initial page index');
     } catch (e) {
       pageController = PageController(initialPage: pageIndex); //初始化pageController
     }

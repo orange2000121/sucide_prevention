@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sucide_prevention/auth.dart';
 import 'package:sucide_prevention/auth/home/login_page.dart';
+import 'package:sucide_prevention/auth/pagination/change_password.dart';
 import 'package:sucide_prevention/utils.dart';
 import 'package:sucide_prevention/home/components/gradient_button.dart';
 
@@ -68,7 +69,12 @@ class _UserProfileState extends State<UserProfile> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 30),
-                        child: IconButton(icon: Image.asset('resources/image/button/up-arrow.png'), onPressed: () {}),
+                        child: IconButton(
+                          icon: Image.asset('resources/image/button/up-arrow.png'),
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ChangePassword()));
+                          },
+                        ),
                       ),
                     ],
                   ),
