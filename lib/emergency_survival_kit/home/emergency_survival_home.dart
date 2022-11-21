@@ -15,17 +15,17 @@ class _SurvialHomeState extends State<SurvialHome> {
   @override
   @override
   Widget build(BuildContext context) {
+    double topPadding = MediaQuery.of(context).padding.top;
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(image: AssetImage("resources/image/background/green_cloud.png"), fit: BoxFit.cover),
       ),
       child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        const Padding(
-          padding: EdgeInsets.fromLTRB(0, 80, 0, 20),
-          child: Text('緊急救生包', style: ThemeText.titleStyle),
+        Padding(
+          padding: EdgeInsets.fromLTRB(0, topPadding + 20, 0, 0),
+          child: const Text('緊急救生包', style: ThemeText.titleStyle),
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height - 260,
+        Expanded(
           child: FutureBuilder(
               future: readMethod('resources/doc/survial/method.json'),
               builder: (context, AsyncSnapshot snapshot) {

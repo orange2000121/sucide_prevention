@@ -77,6 +77,7 @@ class _WheelState extends State<Wheel> {
         ),
       ),
       child: ListWheelScrollView(
+        physics: const FixedExtentScrollPhysics(),
         itemExtent: 42,
         useMagnifier: true,
         magnification: 1.5,
