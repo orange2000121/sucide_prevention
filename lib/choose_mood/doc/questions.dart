@@ -12,6 +12,7 @@ class MoodDoc {
     },
     "1": {"type": "date", "title": "請輸入時間", "options": []},
     "2": {"type": "date", "title": "請輸入有衝動想法的時間", "options": []},
+    "22": {"type": "date", "title": "請輸入發生的時間", "options": []},
     "11": {
       "type": "location",
       "title": "請輸入地點",
@@ -20,17 +21,17 @@ class MoodDoc {
     "3": {
       "type": "rattingBar",
       "title": "身體痛苦指數有幾分",
-      "options": const [Color(0xffFFB5B5), Color(0xffFF9797), Color(0xffFF7575), Color(0xffFF5151), Color(0xffFF2D2D)]
+      "options": const [Color(0xffFFE5C0), Color(0xffFDD29B), Color(0xffFBA953), Color(0xffF58229), Color(0xffDF6F19)]
     },
     "4": {
       "type": "rattingBar",
       "title": "情緒痛苦指數有幾分",
-      "options": const [Color(0xffFFB5B5), Color(0xffFF9797), Color(0xffFF7575), Color(0xffFF5151), Color(0xffFF2D2D)]
+      "options": const [Color.fromARGB(102, 0, 92, 51), Color.fromARGB(128, 0, 92, 51), Color.fromARGB(153, 0, 92, 51), Color.fromARGB(204, 0, 92, 51), Color.fromARGB(255, 0, 92, 51)]
     },
     "5": {
       "type": "rattingBar",
       "title": "今天的快樂指數有幾分",
-      "options": const [Color(0xffFFB5B5), Color(0xffFF9797), Color(0xffFF7575), Color(0xffFF5151), Color(0xffFF2D2D)]
+      "options": const [Color(0xffB2FFB2), Color(0xff8EFF8E), Color(0xff6DF96D), Color(0xff58F758), Color(0xff1EE81E)]
     },
     "6": {
       "type": "rattingBar",
@@ -50,17 +51,51 @@ class MoodDoc {
     "9": {
       "type": "optionWheel",
       "title": "使用方式/數量",
-      "options": [
-        ["口服", "注射"],
-        ["100g", "200g", "300g"]
-      ]
+      "options": {
+        "wheel": [
+          ["口服", "注射"],
+          ["100g", "200g", "300g"]
+        ],
+        "input": []
+      }
     },
     "10": {
       "type": "optionWheel",
       "title": "種類",
-      "options": [
-        ["安非他命", "烈酒", "搖頭丸", "強力膠"]
-      ]
+      "options": {
+        "wheel": [
+          ["安非他命", "烈酒", "搖頭丸", "強力膠"]
+        ],
+        "input": []
+      }
+    },
+    "19": {
+      "type": "optionWheel",
+      "title": "數量/種類",
+      "options": {
+        "wheel": [],
+        "input": ["按此輸入食物種類", "按此輸入數量"]
+      }
+    },
+    "20": {
+      "type": "optionWheel",
+      "title": "種類/數量",
+      "options": {
+        "wheel": [
+          ["水果酒", "紅/白酒", "烈酒"]
+        ],
+        "input": ["按此輸入數量"]
+      }
+    },
+    "21": {
+      "type": "optionWheel",
+      "title": "使用方法/數量",
+      "options": {
+        "wheel": [
+          ["口服", "注射"]
+        ],
+        "input": ["按此輸入數量"]
+      }
     },
     "12": {"type": "form", "title": "有什麼要補充說明?", "options": []},
     "13": {"type": "form", "title": "有其他其情緒?告訴我吧", "options": []},
@@ -68,24 +103,37 @@ class MoodDoc {
     "15": {
       "type": "buttonOptipn",
       "title": "有哪種衝動想法?",
-      "options": ["自殺", "自傷"]
+      "options": ["自殺", "自傷", "酒精", "毒品", "暴食"]
     },
     "16": {
       "type": "buttonOptipn",
       "title": "請選擇今天的心情狀態",
-      "options": ["快樂", "痛苦", "衝動想法", "酒精/毒品", "其他情緒"]
+      "options": ["快樂", "痛苦", "衝動想法", "其他情緒"]
+    },
+    "17": {
+      "type": "negMood",
+      "title": "選擇對應情緒的詞語",
+      "options": ["負面情緒"]
+    },
+    "18": {
+      "type": "posMood",
+      "title": "選擇對應情緒的詞語",
+      "options": ["正面情緒"]
     },
   };
 
   static Map questionOrder = {
     "main": [16],
-    "快樂": [5, 1, 11, 12],
-    "痛苦": [3, 4, 0, 1, 11],
+    "快樂": [5, 18, 1, 11, 12],
+    "痛苦": [3, 4, 17, 1, 11],
     "衝動想法": [15],
     "自殺": [6, 2, 11, 14],
     "自傷": [7, 2, 11, 14],
+    "酒精": [20, 2, 11, 14],
+    "毒品": [21, 2, 11, 14],
+    "暴食": [19, 22, 11, 14],
     "酒精/毒品": [9, 10, 2, 11, 14],
-    "其他情緒": [13, 8, 1, 11]
+    "其他情緒": [13, 8, 1, 11, 14]
   };
   static Map moodData = {
     "positive": [

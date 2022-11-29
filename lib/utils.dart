@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_launcher_icons/xml_templates.dart';
 
 abstract class ThemeText {
   static const TextStyle titleStyle = TextStyle(
     fontSize: 30,
     // fontWeight: FontWeight.bold,
+  );
+  static const TextStyle titleHint = TextStyle(
+    fontSize: 20,
+    color: Color(0xff707070),
   );
   static const TextStyle subtitleStyle = TextStyle(
     fontSize: 25,

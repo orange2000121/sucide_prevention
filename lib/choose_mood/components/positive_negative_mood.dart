@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sucide_prevention/choose_mood/doc/questions.dart';
 import 'package:sucide_prevention/utils.dart';
 
+///無使用
 class PosNegMood extends StatefulWidget {
   ///回傳正面情緒與負面情緒的所有選擇選項
   final Function(List pos, List neg) onAnswer;

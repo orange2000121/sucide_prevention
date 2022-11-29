@@ -4,11 +4,14 @@ import 'package:sucide_prevention/choose_mood/components/chose_date.dart';
 import 'package:sucide_prevention/choose_mood/components/locations.dart';
 import 'package:sucide_prevention/choose_mood/components/mood_rating_bar.dart';
 import 'package:sucide_prevention/choose_mood/components/button_options.dart';
+import 'package:sucide_prevention/choose_mood/components/negative_mood.dart';
+import 'package:sucide_prevention/choose_mood/components/positive_mood.dart';
 import 'package:sucide_prevention/choose_mood/components/positive_negative_mood.dart';
 import 'package:sucide_prevention/choose_mood/components/short_answer.dart';
 import 'package:sucide_prevention/choose_mood/components/used.dart';
 import 'package:sucide_prevention/choose_mood/components/wheel_chose.dart';
 import 'package:sucide_prevention/choose_mood/doc/questions.dart';
+import 'package:sucide_prevention/choose_mood/pagination/chose_mood_end.dart';
 import 'package:sucide_prevention/home/home_page.dart';
 import 'package:sucide_prevention/utils.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -58,6 +61,26 @@ class _MoodHomeState extends State<MoodHome> {
               answerTemp = {
                 '正面情緒': pos,
                 '負面情緒': neg,
+              };
+              print('cuttent answer $answerTemp');
+            },
+          ));
+          break;
+        case "negMood":
+          questionPagination.add(NegativeMood(
+            onAnswer: (List neg) {
+              answerTemp = {
+                '負面情緒': neg,
+              };
+              print('cuttent answer $answerTemp');
+            },
+          ));
+          break;
+        case "posMood":
+          questionPagination.add(PositiveMood(
+            onAnswer: (List pos) {
+              answerTemp = {
+                '正面情緒': pos,
               };
               print('cuttent answer $answerTemp');
             },
@@ -160,7 +183,7 @@ class _MoodHomeState extends State<MoodHome> {
                   answers.add(answerTemp);
                 }
 
-                Fluttertoast.showToast(msg: 'wait');
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const ChoseMoodEnd()), (route) => false);
                 // firestore 上傳
                 FirebaseFirestore db = FirebaseFirestore.instance;
                 String now = DateTime.now().toString();
@@ -168,7 +191,7 @@ class _MoodHomeState extends State<MoodHome> {
 
                 Fluttertoast.cancel();
                 if (!mounted) return;
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const HomePage()), (route) => false);
+                Fluttertoast.showToast(msg: '上傳成功');
               })
             : NextQuestion(onTap: () {
                 if (pageIndex < questionPagination.length - 1) {

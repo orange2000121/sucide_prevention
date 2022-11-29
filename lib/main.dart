@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sucide_prevention/auth.dart';
 import 'package:sucide_prevention/auth/home/login_page.dart';
 import 'package:sucide_prevention/home/home_page.dart';
 import 'package:sucide_prevention/splash_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-Future<void> main() async {
+main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      // name: 'test',
-      // options: DefaultFirebaseOptions.currentPlatform,
-      );
-
+  SystemChrome.setPreferredOrientations([
+    // 強制豎屏
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown
+  ]);
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -27,10 +29,9 @@ class MyApp extends StatelessWidget {
         // Loading
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const MaterialApp(
-            home: SplashPage(),
+            home: SplashPage(photoPath: "resources/image/splash_logo.png"),
           );
         }
-
         // Main
         else {
           if (AuthService().getuserdata() == null) {

@@ -13,17 +13,56 @@ class SurvialHome extends StatefulWidget {
 
 class _SurvialHomeState extends State<SurvialHome> {
   @override
-  @override
   Widget build(BuildContext context) {
+    double w = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
     double topPadding = MediaQuery.of(context).padding.top;
+    Widget leafeBar = Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        Image.asset(
+          "resources/image/leafe.png",
+        ),
+        SizedBox(
+          width: w * 0.6,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                width: w * 0.25,
+                child: const Divider(
+                  color: Colors.black,
+                  thickness: 1,
+                ),
+              ),
+              SizedBox(
+                width: w * 0.25,
+                child: const Divider(
+                  color: Colors.black,
+                  thickness: 1,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(image: AssetImage("resources/image/background/green_cloud.png"), fit: BoxFit.cover),
       ),
       child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Padding(
-          padding: EdgeInsets.fromLTRB(0, topPadding + 20, 0, 0),
-          child: const Text('緊急救生包', style: ThemeText.titleStyle),
+        SizedBox(
+          height: topPadding + 20,
+        ),
+        leafeBar,
+        const Text('緊急救生包', style: ThemeText.titleStyle),
+        SizedBox(
+          width: w * 0.7,
+          child: const Divider(
+            color: Colors.black,
+            thickness: 1,
+          ),
         ),
         Expanded(
           child: FutureBuilder(

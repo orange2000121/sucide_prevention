@@ -24,7 +24,7 @@ class _ChangePasswordState extends State<ChangePassword> {
             Column(
               children: [
                 Row(children: [IconButton(iconSize: 40, onPressed: () => Navigator.pop(context), icon: const Icon(Icons.keyboard_double_arrow_left))]),
-                const Text('個人基本資料', style: ThemeText.titleStyle),
+                const Text('更改密碼', style: ThemeText.titleStyle),
               ],
             ),
             SizedBox(

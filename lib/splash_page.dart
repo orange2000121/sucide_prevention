@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 // SplashPage
 class SplashPage extends StatelessWidget {
-  const SplashPage({Key? key}) : super(key: key);
+  final String photoPath;
+  const SplashPage({Key? key, required this.photoPath}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class SplashPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'resources/image/splash_logo.png',
+                  photoPath,
                   height: MediaQuery.of(context).size.width,
                   width: MediaQuery.of(context).size.width,
                 ),
