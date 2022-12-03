@@ -24,9 +24,9 @@ class AuthService {
   }
 
   //reset account
-  Future<bool> resetpassword(emailaddress) async {
+  Future<bool> resetpassword(String emailaddress) async {
     try {
-      await FirebaseAuth.instance.sendPasswordResetEmail(email: emailaddress.text);
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: emailaddress);
     } on FirebaseAuthException catch (e) {
       print(e.code);
       print(e.message);

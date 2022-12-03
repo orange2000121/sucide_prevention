@@ -32,8 +32,7 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
               ));
         }
       },
-      icon:
-          Image.asset('resources/image/button/google__1_-removebg-preview.png'),
+      icon: Image.asset('resources/image/button/google__1_-removebg-preview.png'),
       iconSize: 80,
     );
   }

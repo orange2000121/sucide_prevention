@@ -59,7 +59,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 const SizedBox(height: 20),
                 InkWell(
                   onTap: () async {
-                    final status = await auth.resetpassword(emailreset);
+                    final status = await auth.resetpassword(emailreset.text);
                     if (status) {
                       Navigator.push(
                           context,

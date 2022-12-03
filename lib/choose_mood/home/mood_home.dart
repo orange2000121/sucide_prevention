@@ -12,7 +12,6 @@ import 'package:sucide_prevention/choose_mood/components/used.dart';
 import 'package:sucide_prevention/choose_mood/components/wheel_chose.dart';
 import 'package:sucide_prevention/choose_mood/doc/questions.dart';
 import 'package:sucide_prevention/choose_mood/pagination/chose_mood_end.dart';
-import 'package:sucide_prevention/home/home_page.dart';
 import 'package:sucide_prevention/utils.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sucide_prevention/auth.dart';
@@ -210,6 +209,7 @@ class _MoodHomeState extends State<MoodHome> {
                     Fluttertoast.showToast(msg: '需填寫問題');
                   }
                 }
+                FocusManager.instance.primaryFocus?.unfocus();
               })
         : const SizedBox();
   }

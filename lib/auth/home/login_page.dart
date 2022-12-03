@@ -166,19 +166,19 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        width: 80,
-                        height: 80,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(image: AssetImage('resources/image/button/apple__4_-removebg-preview.png')),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    const GoogleSignInButton(),
+                  children: const [
+                    // InkWell(
+                    //   onTap: () {},
+                    //   child: Container(
+                    //     width: 80,
+                    //     height: 80,
+                    //     decoration: const BoxDecoration(
+                    //       image: DecorationImage(image: AssetImage('resources/image/button/apple__4_-removebg-preview.png')),
+                    //     ),
+                    //   ),
+                    // ),
+                    // const SizedBox(width: 20),
+                    // GoogleSignInButton(),
                   ],
                 )
               ],

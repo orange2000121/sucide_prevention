@@ -69,10 +69,25 @@ class _UserProfileState extends State<UserProfile> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 30),
-                        child: IconButton(
-                          icon: Image.asset('resources/image/button/up-arrow.png'),
-                          onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ChangePassword()));
+                        child: TextButton(
+                          child: const Text('變更密碼', style: TextStyle(color: Color(0xff94C1C9))),
+                          onPressed: () async {
+                            bool status = await auth.resetpassword(auth.getuserdata());
+                            if (status) {
+                              showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('已寄送密碼重設信件'),
+                                  content: const Text('請至信箱收取信件'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context, 'OK'),
+                                      child: const Text('確認'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
                           },
                         ),
                       ),

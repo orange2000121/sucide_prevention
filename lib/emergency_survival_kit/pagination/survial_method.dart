@@ -15,7 +15,7 @@ class _SurvialMethodState extends State<SurvialMethod> {
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     Widget leafeBar = Stack(
-      alignment: Alignment.bottomCenter,
+      alignment: Alignment.center,
       children: [
         Image.asset(
           "resources/image/leafe.png",
@@ -26,14 +26,14 @@ class _SurvialMethodState extends State<SurvialMethod> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: w * 0.25,
+                width: w * 0.2,
                 child: const Divider(
                   color: Colors.black,
                   thickness: 1,
                 ),
               ),
               SizedBox(
-                width: w * 0.25,
+                width: w * 0.2,
                 child: const Divider(
                   color: Colors.black,
                   thickness: 1,
@@ -64,8 +64,8 @@ class _SurvialMethodState extends State<SurvialMethod> {
                   child: Text(method[index], style: ThemeText.contentStyle),
                 ),
               );
+              Widget lastContent = Text(method[method.length - 1], textAlign: TextAlign.center, style: ThemeText.subtitleStyle);
 
-              Widget lastContent = Text(method[method.length - 1], style: ThemeText.subtitleStyle);
               return Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
