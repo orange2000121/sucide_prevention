@@ -73,11 +73,20 @@ class _createaccountState extends State<createaccount> {
                   onTap: () async {
                     final status = await auth.signupwithemail(email, password);
                     if (status) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginPage(),
-                          ));
+                      await showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text('註冊成功'),
+                          content: const Text('請重新登入'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('確定'),
+                            ),
+                          ],
+                        ),
+                      );
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
                     }
                   },
                   child: const Text('註冊', style: ThemeText.buttonStyle),

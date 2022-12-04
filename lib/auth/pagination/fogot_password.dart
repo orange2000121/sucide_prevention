@@ -61,6 +61,19 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   onTap: () async {
                     final status = await auth.resetpassword(emailreset.text);
                     if (status) {
+                      await showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text('重設密碼信件已寄出'),
+                          content: const Text('請至信箱收取重設密碼信件'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('確定'),
+                            ),
+                          ],
+                        ),
+                      );
                       Navigator.push(
                           context,
                           MaterialPageRoute(
