@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sucide_prevention/auth/components/google_login.dart';
 import 'package:sucide_prevention/home/home_page.dart';
+import 'package:sucide_prevention/tool/mood_db.dart';
 import 'package:sucide_prevention/tool/sharepreference_helper.dart';
 import 'package:sucide_prevention/utils.dart';
 import 'package:sucide_prevention/auth/pagination/fogot_password.dart';
@@ -142,6 +143,21 @@ class _LoginPageState extends State<LoginPage> {
                           //   prefs.setString('watchid', value.data()!['watchid']);
                           // });
                         });
+                        // firebase同步心情紀錄
+                        final docRef = db.collection(auth.getuserdata()).doc("mood");
+                        docRef.get().then(
+                          (DocumentSnapshot doc) {
+                            final data = doc.data() as Map<String, dynamic>;
+                            // ...
+                            MoodDB moodDB = MoodDB();
+                            moodDB.deleteAll();
+                            data.forEach((key, value) {
+                              print('key: $key, value: $value');
+                              moodDB.insertMood(value, key);
+                            });
+                          },
+                          onError: (e) => print("Error getting document: $e"),
+                        );
 
                         Navigator.pushAndRemoveUntil(
                           context,

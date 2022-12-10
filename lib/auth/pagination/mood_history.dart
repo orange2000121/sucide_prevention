@@ -40,8 +40,12 @@ class _MoodHistoryState extends State<MoodHistory> {
                     width: 300,
                     height: 50,
                     child: ListView(
+                      // padding: EdgeInsets.all(8),
                       scrollDirection: Axis.horizontal,
-                      children: List.generate(content[recordIdx].length, (contentIdx) => Text('${content[recordIdx][contentIdx]}')),
+                      children: List.generate(
+                        content[recordIdx].length,
+                        (contentIdx) => Center(child: Text('${content[recordIdx][contentIdx]}${contentIdx == content[recordIdx].length - 1 ? '' : '、'}')),
+                      ),
                     ),
                   )
                 ],

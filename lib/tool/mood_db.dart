@@ -31,7 +31,7 @@ class MoodDB {
     ''');
   }
 
-  Future<int> insertMood(List<Map<String, dynamic>> row, String date) async {
+  Future<int> insertMood(List row, String date) async {
     Database dbClient = await db;
     return await dbClient.insert('mood', {'date': date, 'record': json.encode(row)});
   }
@@ -55,5 +55,11 @@ class MoodDB {
   Future<int> delete(int id) async {
     Database dbClient = await db;
     return await dbClient.delete('mood', where: 'id = ?', whereArgs: [id]);
+  }
+
+  // deleteall
+  Future<int> deleteAll() async {
+    Database dbClient = await db;
+    return await dbClient.delete('mood');
   }
 }
