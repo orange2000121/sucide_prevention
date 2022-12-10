@@ -51,12 +51,12 @@ class _SurvialMethodState extends State<SurvialMethod> {
           image: DecorationImage(image: AssetImage("resources/image/background/method_background.png"), fit: BoxFit.cover),
         ),
         child: FutureBuilder(
-          future: readMethod('resources/doc/survial/method.json'),
+          future: readMethod('resources/doc/survial/methods.json'),
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
-              List method = snapshot.data['content'][widget.methodNum];
-              String title = snapshot.data['title'][widget.methodNum];
-              String image = snapshot.data['image'][widget.methodNum];
+              List method = snapshot.data[widget.methodNum]['content'];
+              String title = snapshot.data[widget.methodNum]['title'];
+              String image = snapshot.data[widget.methodNum]['image'];
               List<Widget> contents = List.generate(
                 method.length - 1,
                 (index) => Padding(

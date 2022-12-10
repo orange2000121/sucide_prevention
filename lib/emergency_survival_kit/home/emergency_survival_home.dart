@@ -66,14 +66,11 @@ class _SurvialHomeState extends State<SurvialHome> {
         ),
         Expanded(
           child: FutureBuilder(
-              future: readMethod('resources/doc/survial/method.json'),
+              future: readMethod('resources/doc/survial/methods.json'),
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
-                  List? survialTitle = snapshot.data['title'];
-                  List? survialImage = snapshot.data['image'];
-
                   return ListView.builder(
-                    itemCount: survialTitle!.length,
+                    itemCount: snapshot.data.length,
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
@@ -89,9 +86,9 @@ class _SurvialHomeState extends State<SurvialHome> {
                           padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
                           child: Column(
                             children: [
-                              Text('方法${index + 1}: ${survialTitle[index]}', style: ThemeText.subtitleStyle),
+                              Text('方法${index + 1}: ${snapshot.data[index]['title']}', style: ThemeText.subtitleStyle),
                               const SizedBox(height: 10),
-                              Image.asset(survialImage![index], width: MediaQuery.of(context).size.width - 50, height: 200),
+                              Image.asset(snapshot.data[index]['image'], width: MediaQuery.of(context).size.width - 50, height: 200),
                             ],
                           ),
                         ),

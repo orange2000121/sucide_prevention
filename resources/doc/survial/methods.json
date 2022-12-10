@@ -1,0 +1,297 @@
+[
+    {
+        "title": "改變臉的溫度",
+        "content": [
+            "1.拿出冰水或冰袋",
+            "2.放在眼睛與臉頰15-30s",
+            "功效: 心跳變慢，調節情緒"
+        ],
+        "image": "resources/image/survial/Image_3.png"
+    },
+    {
+        "title": "激烈運動",
+        "content": [
+            "使用時機：憤怒、煩躁、無法思考",
+            "舉例:跑步、游泳、爬山、重訓"
+        ],
+        "image": "resources/image/survial/Image_4.png"
+    },
+    {
+        "title": "熱水澡",
+        "content": [
+            "泡個溫暖的澡總是能忘卻煩惱"
+        ],
+        "image": "resources/image/survial/Bath.png"
+    },
+    {
+        "title": "調節呼吸",
+        "content": [
+            "穩定平順的呼吸有助於穩定情緒"
+        ],
+        "image": "resources/image/survial/Meditation-pana.png"
+    },
+    {
+        "title": "吃喜歡的東西",
+        "content": [
+            "用另外一種方式喜愛自己"
+        ],
+        "image": "resources/image/survial/Eating_donuts-pana.png"
+    },
+    {
+        "title": "建立成就感",
+        "content": [
+            "規劃每天至少做一件事"
+        ],
+        "image": "resources/image/survial/m6.jpg"
+    },
+    {
+        "title": "回歸感官觀察",
+        "content": [
+            "把注意力放在每個當下",
+            "留心身邊的環境"
+        ],
+        "image": "resources/image/survial/m7.jpg"
+    },
+    {
+        "title": "讓緊繃的肌肉放鬆",
+        "content": [
+            "調節呼吸速度 深呼吸 慢慢吐氣"
+        ],
+        "image": "resources/image/survial/m8.jpg"
+    },
+    {
+        "title": "均衡飲食 均衡睡眠 適當運動",
+        "content": [
+            "照顧好我們的身體與心靈"
+        ],
+        "image": "resources/image/survial/m9.jpg"
+    },
+    {
+        "title": "暫停或暫時離開",
+        "content": [
+            "離開讓人感到不適的空間"
+        ],
+        "image": "resources/image/survial/m10.jpg"
+    },
+    {
+        "title": "體驗正向活動",
+        "content": [
+            "例如觀看天上的雲"
+        ],
+        "image": "resources/image/survial/m11.jpg"
+    },
+    {
+        "title": "體驗正向活動",
+        "content": [
+            "聆聽音樂"
+        ],
+        "image": "resources/image/survial/m12.jpg"
+    },
+    {
+        "title": "體驗正向活動",
+        "content": [
+            "例如注意眼前的美食"
+        ],
+        "image": "resources/image/survial/m13.jpg"
+    },
+    {
+        "title": "產生自我掌控感",
+        "content": [
+            "做一些開心的事",
+            "做一些可以勝任和有效能的事"
+        ],
+        "image": "resources/image/survial/m14.jpg"
+    },
+    {
+        "title": "重新審視生活優先順序",
+        "content": [
+            "劃出優缺點評估表格"
+        ],
+        "image": "resources/image/survial/m15.png"
+    },
+    {
+        "title": "替換想法",
+        "content": [
+            "用不同的思緒來替換現在的情緒"
+        ],
+        "image": "resources/image/survial/m16.jpg"
+    },
+    {
+        "title": "鼓勵",
+        "content": [
+            "給自己加油打氣",
+            "相信自己、盼望自己、愛自己"
+        ],
+        "image": "resources/image/survial/m17.jpg"
+    },
+    {
+        "title": "替代性叛逆",
+        "content": [
+            "透過另一種叛逆但不具破壞性的行為來取代成癮行為"
+        ],
+        "image": "resources/image/survial/m18.jpg"
+    },
+    {
+        "title": "想像治療",
+        "content": [
+            "想像一個安全的地方或非常放鬆的場景"
+        ],
+        "image": "resources/image/survial/m19.jpg"
+    },
+    {
+        "title": "用非慣用手寫字",
+        "content": [
+            "拿出紙和筆",
+            "使用非慣用手書寫任何主題",
+            "將注意力放在書寫的過程"
+        ],
+        "image": "resources/image/survial/m20.jpg"
+    },
+    {
+        "title": "創造意義",
+        "content": [
+            "關愛他人"
+        ],
+        "image": "resources/image/survial/m21.jpg"
+    },
+    {
+        "title": "祈禱",
+        "content": [
+            "請求更高的信仰來幫助自己",
+            "想像更高權能的對象正陪伴著自己度過苦難的每一天"
+        ],
+        "image": "resources/image/survial/m22.jpg"
+    },
+    {
+        "title": "掌握你的心-不評斷1",
+        "content": [
+            "只是看，不評斷好壞，只是看事實。"
+        ],
+        "image": "resources/image/survial/m23.png"
+    },
+    {
+        "title": "掌握你的心-不評斷2",
+        "content": [
+            "意識到有益與有害、危險和安全的區別，但是不評斷它們。"
+        ],
+        "image": "resources/image/survial/m24.png"
+    },
+    {
+        "title": "掌握你的心-不評斷3",
+        "content": [
+            "承認你的價值、你的期望、你的情緒反應，但是不評斷它們。"
+        ],
+        "image": "resources/image/survial/m25.jpg"
+    },
+    {
+        "title": "掌握你的心-專一的做1",
+        "content": [
+            "讓分心離開",
+            "把心帶回原本在做的事情上"
+        ],
+        "image": "resources/image/survial/m26.png"
+    },
+    {
+        "title": "掌握你的心-專一的做2",
+        "content": [
+            "專注你的心",
+            "一次只做一件事",
+            "與一心多用相反"
+        ],
+        "image": "resources/image/survial/m27.png"
+    },
+    {
+        "title": "掌握你的心-有效地做1",
+        "content": [
+            "專注於你在此情境中的目標",
+            "做當時需要做的事以達成目標"
+        ],
+        "image": "resources/image/survial/m28.jpg"
+    },
+    {
+        "title": "掌握你的心-有效地做2",
+        "content": [
+            "照著規則行事"
+        ],
+        "image": "resources/image/survial/m29.png"
+    },
+    {
+        "title": "掌握你的心-有效地做3",
+        "content": [
+            "放下你的執意並且接納現況"
+        ],
+        "image": "resources/image/survial/m30.png"
+    },
+    {
+        "title": "預先因應",
+        "content": [
+            "事先預演可能遇到的問題",
+            "能以有技巧地因應情緒化的情境"
+        ],
+        "image": "resources/image/survial/m31.jpg"
+    },
+    {
+        "title": "累積正向情緒1",
+        "content": [
+            "避免迴避",
+            "開始去做可建立自己想要的生活的事"
+        ],
+        "image": "resources/image/survial/m32.jpg"
+    },
+    {
+        "title": "累積正向情緒2",
+        "content": [
+            "確認對你重要的價值觀"
+        ],
+        "image": "resources/image/survial/m33.png"
+    },
+    {
+        "title": "累積正向情緒3",
+        "content": [
+            "確認一個現在可執行的價值觀"
+        ],
+        "image": "resources/image/survial/m34.jpg"
+    },
+    {
+        "title": "累積正向情緒4",
+        "content": [
+            "確認跟此價值觀有關的幾個目標"
+        ],
+        "image": "resources/image/survial/m35.jpg"
+    },
+    {
+        "title": "累積正向情緒5",
+        "content": [
+            "選擇一個現在可執行的目標"
+        ],
+        "image": "resources/image/survial/m36.jpg"
+    },
+    {
+        "title": "累積正向情緒6",
+        "content": [
+            "確認朝向目標的小行動步驟"
+        ],
+        "image": "resources/image/survial/m37.png"
+    },
+    {
+        "title": "累積正向情緒7",
+        "content": [
+            "現在採取一個行動步驟"
+        ],
+        "image": "resources/image/survial/m38.png"
+    },
+    {
+        "title": "避免改變情緒的物質",
+        "content": [
+            "遠離違禁藥物，飲酒適量"
+        ],
+        "image": "resources/image/survial/m39.jpg"
+    },
+    {
+        "title": "治療身體疾病",
+        "content": [
+            "需要時看醫生，服用處方藥物"
+        ],
+        "image": "resources/image/survial/m40.jpg"
+    }
+]
