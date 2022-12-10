@@ -231,54 +231,26 @@
         "image": "resources/image/survial/m31.jpg"
     },
     {
-        "title": "累積正向情緒1",
+        "title": "累積正向情緒",
         "content": [
+            "開始去做可建立自己想要的生活的事",
+            "確認對你重要的價值觀",
+            "確認一個現在可執行的價值觀",
             "避免迴避",
-            "開始去做可建立自己想要的生活的事"
+            ""
         ],
         "image": "resources/image/survial/m32.jpg"
     },
     {
-        "title": "累積正向情緒2",
+        "title": "累積正向情緒",
         "content": [
-            "確認對你重要的價值觀"
+            "確認跟此價值觀有關的幾個目標",
+            "選擇一個現在可執行的目標",
+            "確認朝向目標的小行動步驟",
+            "現在採取一個行動步驟",
+            ""
         ],
         "image": "resources/image/survial/m33.png"
-    },
-    {
-        "title": "累積正向情緒3",
-        "content": [
-            "確認一個現在可執行的價值觀"
-        ],
-        "image": "resources/image/survial/m34.jpg"
-    },
-    {
-        "title": "累積正向情緒4",
-        "content": [
-            "確認跟此價值觀有關的幾個目標"
-        ],
-        "image": "resources/image/survial/m35.jpg"
-    },
-    {
-        "title": "累積正向情緒5",
-        "content": [
-            "選擇一個現在可執行的目標"
-        ],
-        "image": "resources/image/survial/m36.jpg"
-    },
-    {
-        "title": "累積正向情緒6",
-        "content": [
-            "確認朝向目標的小行動步驟"
-        ],
-        "image": "resources/image/survial/m37.png"
-    },
-    {
-        "title": "累積正向情緒7",
-        "content": [
-            "現在採取一個行動步驟"
-        ],
-        "image": "resources/image/survial/m38.png"
     },
     {
         "title": "避免改變情緒的物質",

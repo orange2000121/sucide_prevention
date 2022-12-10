@@ -41,7 +41,7 @@ class _LocationsState extends State<Locations> {
           child: ListView(
             physics: focusNode.hasFocus ? const ScrollPhysics() : const NeverScrollableScrollPhysics(),
             children: [
-              LocationButton(title: '溫暖的家', select: select, iconPath: 'resources/image/button/location/house.png', onPressed: (title) => _onAnswer(title)),
+              LocationButton(title: '住家', select: select, iconPath: 'resources/image/button/location/house.png', onPressed: (title) => _onAnswer(title)),
               LocationButton(title: '公司', select: select, iconPath: 'resources/image/button/location/employee.png', onPressed: (title) => _onAnswer(title)),
               LocationButton(title: '學校', select: select, iconPath: 'resources/image/button/location/school.png', onPressed: (title) => _onAnswer(title)),
               LocationButton(title: '朋友家', select: select, iconPath: 'resources/image/button/location/friend.png', onPressed: (title) => _onAnswer(title)),
@@ -100,7 +100,7 @@ class LocationButton extends StatelessWidget {
                 padding: EdgeInsets.all(h * 0.01),
                 margin: EdgeInsets.all(h * 0.005),
                 decoration: BoxDecoration(
-                  color: select == title ? const Color(0xffDDEBEB) : Colors.transparent,
+                  color: select == title ? const Color.fromARGB(255, 90, 191, 191) : Colors.transparent,
                   borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                 ),
                 child: Image.asset(iconPath, width: h * 0.08)),

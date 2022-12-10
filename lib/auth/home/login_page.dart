@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sucide_prevention/auth/components/google_login.dart';
 import 'package:sucide_prevention/home/home_page.dart';
+import 'package:sucide_prevention/tool/sharepreference_helper.dart';
 import 'package:sucide_prevention/utils.dart';
 import 'package:sucide_prevention/auth/pagination/fogot_password.dart';
 import 'package:sucide_prevention/auth/pagination/createaccount.dart';
@@ -136,9 +137,10 @@ class _LoginPageState extends State<LoginPage> {
                         var auth = AuthService();
                         var profile = db.collection(auth.getuserdata()).doc('profile').snapshots().first;
                         profile.then((value) {
-                          SharedPreferences.getInstance().then((prefs) {
-                            prefs.setString('watchid', value.data()!['watchid']);
-                          });
+                          SharePreferenceHelper().setString(SharePreferenceHelper.watchKey, value.data()!['watchid']);
+                          // SharedPreferences.getInstance().then((prefs) {
+                          //   prefs.setString('watchid', value.data()!['watchid']);
+                          // });
                         });
 
                         Navigator.pushAndRemoveUntil(

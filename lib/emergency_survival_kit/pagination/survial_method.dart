@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sucide_prevention/tool/load_json.dart';
+import 'package:sucide_prevention/tool/sharepreference_helper.dart';
 import 'package:sucide_prevention/utils.dart';
 
 class SurvialMethod extends StatefulWidget {
@@ -11,6 +12,19 @@ class SurvialMethod extends StatefulWidget {
 }
 
 class _SurvialMethodState extends State<SurvialMethod> {
+  bool isFav = false;
+
+  Future<bool> determineFav() async {
+    List? favoriteList = await SharePreferenceHelper().getJson(SharePreferenceHelper.favoriteKey);
+    if (favoriteList == null) {
+      return false;
+    }
+    if (favoriteList.contains(widget.methodNum)) {
+      isFav = true;
+    }
+    return isFav;
+  }
+
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
@@ -75,14 +89,42 @@ class _SurvialMethodState extends State<SurvialMethod> {
                         padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                         child: Column(
                           children: [
-                            Row(children: [
-                              IconButton(
-                                iconSize: 40,
-                                onPressed: () => Navigator.pop(context),
-                                icon: const Icon(Icons.keyboard_double_arrow_left),
-                              ),
-                              Text('方法${widget.methodNum + 1}', style: ThemeText.titleHint),
-                            ]),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    IconButton(
+                                      iconSize: 40,
+                                      onPressed: () => Navigator.pop(context),
+                                      icon: const Icon(Icons.keyboard_double_arrow_left),
+                                    ),
+                                    Text('方法${widget.methodNum + 1}', style: ThemeText.titleHint),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 30),
+                                  child: FutureBuilder(
+                                    future: determineFav(),
+                                    builder: (context, snapshot) => IconButton(
+                                      onPressed: () async {
+                                        setState(() {
+                                          isFav = !isFav;
+                                        });
+                                        List favoriteList = await SharePreferenceHelper().getJson(SharePreferenceHelper.favoriteKey) ?? [];
+                                        if (isFav) {
+                                          favoriteList.add(widget.methodNum);
+                                        } else {
+                                          favoriteList.remove(widget.methodNum);
+                                        }
+                                        SharePreferenceHelper().setJson(SharePreferenceHelper.favoriteKey, favoriteList);
+                                      },
+                                      icon: Icon(isFav ? Icons.favorite : Icons.favorite_border, size: 36, color: isFav ? Colors.red[400] : Colors.black),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                             Text(title, style: ThemeText.titleStyle),
                           ],
                         ),

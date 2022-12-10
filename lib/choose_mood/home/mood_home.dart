@@ -12,6 +12,7 @@ import 'package:sucide_prevention/choose_mood/components/used.dart';
 import 'package:sucide_prevention/choose_mood/components/wheel_chose.dart';
 import 'package:sucide_prevention/choose_mood/doc/questions.dart';
 import 'package:sucide_prevention/choose_mood/pagination/chose_mood_end.dart';
+import 'package:sucide_prevention/tool/mood_db.dart';
 import 'package:sucide_prevention/utils.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sucide_prevention/auth.dart';
@@ -183,9 +184,12 @@ class _MoodHomeState extends State<MoodHome> {
                 }
 
                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const ChoseMoodEnd()), (route) => false);
+                String now = DateTime.now().toString();
+                // insert to mood_db on sqlite
+                await MoodDB().insertMood(answers, now);
+
                 // firestore 上傳
                 FirebaseFirestore db = FirebaseFirestore.instance;
-                String now = DateTime.now().toString();
                 await db.collection(auth.getuserdata()).doc('mood').set({now: answers}, SetOptions(merge: true));
 
                 Fluttertoast.cancel();

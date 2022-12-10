@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:sucide_prevention/emergency_survival_kit/pagination/survial_method.dart';
 import 'package:sucide_prevention/tool/load_json.dart';
+import 'package:sucide_prevention/tool/sharepreference_helper.dart';
 
 import 'package:sucide_prevention/utils.dart';
 
@@ -12,10 +15,32 @@ class SurvialHome extends StatefulWidget {
 }
 
 class _SurvialHomeState extends State<SurvialHome> {
+  Future choseMethod() async {
+    List methodList = await readMethod('resources/doc/survial/methods.json');
+    List chosenMethod = [];
+    List favoriteList = await SharePreferenceHelper().getJson(SharePreferenceHelper.favoriteKey) ?? [];
+    if (favoriteList.isNotEmpty) {
+      for (int i = 0; i < favoriteList.length; i++) {
+        Map temp = methodList[favoriteList[i]];
+        temp['id'] = favoriteList[i];
+        chosenMethod.add(temp);
+      }
+    }
+    // random choose 3 method
+    while (chosenMethod.length < 5 + favoriteList.length) {
+      int random = Random().nextInt(methodList.length);
+      if (!favoriteList.contains(random)) {
+        Map temp = methodList[random];
+        temp['id'] = random;
+        chosenMethod.add(temp);
+      }
+    }
+    return chosenMethod;
+  }
+
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
-    double h = MediaQuery.of(context).size.height;
     double topPadding = MediaQuery.of(context).padding.top;
     Widget leafeBar = Stack(
       alignment: Alignment.bottomCenter,
@@ -47,62 +72,64 @@ class _SurvialHomeState extends State<SurvialHome> {
         ),
       ],
     );
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(image: AssetImage("resources/image/background/green_cloud.png"), fit: BoxFit.cover),
-      ),
-      child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        SizedBox(
-          height: topPadding + 20,
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(image: AssetImage("resources/image/background/green_cloud.png"), fit: BoxFit.cover),
         ),
-        leafeBar,
-        const Text('緊急救生包', style: ThemeText.titleStyle),
-        SizedBox(
-          width: w * 0.7,
-          child: const Divider(
-            color: Colors.black,
-            thickness: 1,
+        child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          SizedBox(
+            height: topPadding + 20,
           ),
-        ),
-        Expanded(
-          child: FutureBuilder(
-              future: readMethod('resources/doc/survial/methods.json'),
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          debugPrint('$index');
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => SurvialMethod(methodNum: index)));
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: const Color.fromARGB(191, 255, 255, 255),
+          leafeBar,
+          const Text('緊急救生包', style: ThemeText.titleStyle),
+          SizedBox(
+            width: w * 0.7,
+            child: const Divider(
+              color: Colors.black,
+              thickness: 1,
+            ),
+          ),
+          Expanded(
+            child: FutureBuilder(
+                future: choseMethod(),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            debugPrint('$index');
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => SurvialMethod(methodNum: snapshot.data[index]['id'])));
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: const Color.fromARGB(191, 255, 255, 255),
+                            ),
+                            margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                            child: Column(
+                              children: [
+                                Text('${snapshot.data[index]['title']}', style: ThemeText.subtitleStyle),
+                                const SizedBox(height: 10),
+                                Image.asset(snapshot.data[index]['image'], width: MediaQuery.of(context).size.width - 50, height: 200),
+                              ],
+                            ),
                           ),
-                          margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                          child: Column(
-                            children: [
-                              Text('方法${index + 1}: ${snapshot.data[index]['title']}', style: ThemeText.subtitleStyle),
-                              const SizedBox(height: 10),
-                              Image.asset(snapshot.data[index]['image'], width: MediaQuery.of(context).size.width - 50, height: 200),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                } else {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              }),
-        ),
-      ]),
+                        );
+                      },
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                }),
+          ),
+        ]),
+      ),
     );
   }
 }

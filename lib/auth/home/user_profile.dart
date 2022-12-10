@@ -4,6 +4,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sucide_prevention/auth.dart';
 import 'package:sucide_prevention/auth/home/login_page.dart';
 import 'package:sucide_prevention/auth/pagination/change_password.dart';
+import 'package:sucide_prevention/auth/pagination/mood_history.dart';
+import 'package:sucide_prevention/tool/mood_db.dart';
+import 'package:sucide_prevention/tool/sharepreference_helper.dart';
 import 'package:sucide_prevention/utils.dart';
 import 'package:sucide_prevention/home/components/gradient_button.dart';
 
@@ -16,21 +19,27 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends State<UserProfile> {
   final AuthService auth = AuthService();
-  final prefs = SharedPreferences.getInstance();
+  final prefsHelper = SharePreferenceHelper();
   final watchIdController = TextEditingController();
   bool lock = true;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
-    prefs.then((pregs) {
-      watchIdController.text = pregs.getString('watchid') ?? '';
+    prefsHelper.getString(SharePreferenceHelper.watchKey).then((value) {
+      watchIdController.text = value ?? '';
       if (watchIdController.text.isEmpty) {
         // unlock the text field
         setState(() => lock = false);
       }
     });
+    // prefs.then((pregs) {
+    //   watchIdController.text = pregs.getString('watchid') ?? '';
+    //   if (watchIdController.text.isEmpty) {
+    //     // unlock the text field
+    //     setState(() => lock = false);
+    //   }
+    // });
   }
 
   @override
@@ -114,14 +123,16 @@ class _UserProfileState extends State<UserProfile> {
                             ),
                           ),
                           onChanged: (value) {
-                            prefs.then((pregs) {
-                              pregs.setString('watchNumber', value);
-                            });
+                            prefsHelper.setString(SharePreferenceHelper.watchKey, value);
+                            // prefs.then((pregs) {
+                            //   pregs.setString('watchNumber', value);
+                            // });
                           },
                           onSubmitted: (value) {
-                            prefs.then((pregs) {
-                              pregs.setString('watchNumber', value);
-                            });
+                            prefsHelper.setString(SharePreferenceHelper.watchKey, value);
+                            // prefs.then((pregs) {
+                            //   pregs.setString('watchNumber', value);
+                            // });
                             // firestore 上傳更新手錶編號
                             FirebaseFirestore db = FirebaseFirestore.instance;
                             db.collection(auth.getuserdata()).doc('profile').set({"watchid": value});
@@ -157,6 +168,25 @@ class _UserProfileState extends State<UserProfile> {
                     ],
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+                  child: Row(
+                    children: [
+                      Image.asset('resources/image/grid (1).png'),
+                      const Text('心情紀錄: ', style: ThemeText.contentStyle),
+                      GradientButton(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const MoodHistory()));
+                        },
+                        width: 100,
+                        height: 40,
+                        borderRadius: BorderRadius.circular(50),
+                        gradient: const LinearGradient(colors: [Color(0xffEEEBEB), Color(0xffC9D1DD)]),
+                        child: const Text('查看', style: TextStyle(color: Colors.black, fontSize: 20)),
+                      )
+                    ],
+                  ),
+                )
               ],
             ),
             GradientButton(
