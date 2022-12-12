@@ -28,6 +28,7 @@ class _SurvialMethodState extends State<SurvialMethod> {
   @override
   Widget build(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
     Widget leafeBar = Stack(
       alignment: Alignment.center,
       children: [
@@ -133,9 +134,14 @@ class _SurvialMethodState extends State<SurvialMethod> {
                     ],
                   ),
                   Column(children: contents),
-                  Padding(
+                  Container(
                     padding: const EdgeInsets.only(bottom: 50),
-                    child: Image.asset(image, width: MediaQuery.of(context).size.width - 50, height: 200),
+                    width: w * 0.85,
+                    height: h * 0.33,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
+                    ),
                   ),
                   lastContent,
                   const SizedBox(),

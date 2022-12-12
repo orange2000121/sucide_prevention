@@ -18,22 +18,27 @@ class _SurvialHomeState extends State<SurvialHome> {
   Future choseMethod() async {
     List methodList = await readMethod('resources/doc/survial/methods.json');
     List chosenMethod = [];
-    List favoriteList = await SharePreferenceHelper().getJson(SharePreferenceHelper.favoriteKey) ?? [];
-    if (favoriteList.isNotEmpty) {
-      for (int i = 0; i < favoriteList.length; i++) {
-        Map temp = methodList[favoriteList[i]];
-        temp['id'] = favoriteList[i];
-        chosenMethod.add(temp);
-      }
-    }
-    // random choose 3 method
-    while (chosenMethod.length < 5 + favoriteList.length) {
-      int random = Random().nextInt(methodList.length);
-      if (!favoriteList.contains(random)) {
-        Map temp = methodList[random];
-        temp['id'] = random;
-        chosenMethod.add(temp);
-      }
+    // List favoriteList = await SharePreferenceHelper().getJson(SharePreferenceHelper.favoriteKey) ?? [];
+    // if (favoriteList.isNotEmpty) {
+    //   for (int i = 0; i < favoriteList.length; i++) {
+    //     Map temp = methodList[favoriteList[i]];
+    //     temp['id'] = favoriteList[i];
+    //     chosenMethod.add(temp);
+    //   }
+    // }
+    // // random choose 3 method
+    // while (chosenMethod.length < 5 + favoriteList.length) {
+    //   int random = Random().nextInt(methodList.length);
+    //   if (!favoriteList.contains(random)) {
+    //     Map temp = methodList[random];
+    //     temp['id'] = random;
+    //     chosenMethod.add(temp);
+    //   }
+    // }
+    for (int i = 0; i < methodList.length; i++) {
+      Map temp = methodList[i];
+      temp['id'] = i;
+      chosenMethod.add(temp);
     }
     return chosenMethod;
   }
@@ -114,7 +119,15 @@ class _SurvialHomeState extends State<SurvialHome> {
                               children: [
                                 Text('${snapshot.data[index]['title']}', style: ThemeText.subtitleStyle),
                                 const SizedBox(height: 10),
-                                Image.asset(snapshot.data[index]['image'], width: MediaQuery.of(context).size.width - 50, height: 200),
+                                Container(
+                                  height: 200,
+                                  width: w * 0.8,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: const Color.fromARGB(191, 255, 255, 255),
+                                    image: DecorationImage(image: AssetImage(snapshot.data[index]['image']), fit: BoxFit.cover),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
