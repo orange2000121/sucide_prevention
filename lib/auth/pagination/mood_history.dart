@@ -36,6 +36,7 @@ class _MoodHistoryState extends State<MoodHistory> {
               child: Column(
                 children: [
                   Text(title[recordIdx]),
+                  Divider(),
                   SizedBox(
                     width: 300,
                     height: 50,
@@ -71,7 +72,7 @@ class _MoodHistoryState extends State<MoodHistory> {
       alignment: Alignment.bottomCenter,
       children: [
         Image.asset(
-          "resources/image/leafe.png",
+          "resources/image/decorate/leafe.png",
         ),
         SizedBox(
           width: w * 0.6,

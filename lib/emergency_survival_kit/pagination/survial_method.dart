@@ -33,7 +33,7 @@ class _SurvialMethodState extends State<SurvialMethod> {
       alignment: Alignment.center,
       children: [
         Image.asset(
-          "resources/image/leafe.png",
+          "resources/image/decorate/leafe.png",
         ),
         SizedBox(
           width: w * 0.6,

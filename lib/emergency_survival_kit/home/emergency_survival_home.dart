@@ -18,27 +18,24 @@ class _SurvialHomeState extends State<SurvialHome> {
   Future choseMethod() async {
     List methodList = await readMethod('resources/doc/survial/methods.json');
     List chosenMethod = [];
-    // List favoriteList = await SharePreferenceHelper().getJson(SharePreferenceHelper.favoriteKey) ?? [];
-    // if (favoriteList.isNotEmpty) {
-    //   for (int i = 0; i < favoriteList.length; i++) {
-    //     Map temp = methodList[favoriteList[i]];
-    //     temp['id'] = favoriteList[i];
-    //     chosenMethod.add(temp);
-    //   }
-    // }
-    // // random choose 3 method
-    // while (chosenMethod.length < 5 + favoriteList.length) {
-    //   int random = Random().nextInt(methodList.length);
-    //   if (!favoriteList.contains(random)) {
-    //     Map temp = methodList[random];
-    //     temp['id'] = random;
-    //     chosenMethod.add(temp);
-    //   }
-    // }
-    for (int i = 0; i < methodList.length; i++) {
-      Map temp = methodList[i];
-      temp['id'] = i;
-      chosenMethod.add(temp);
+    List randomList = [];
+    List favoriteList = await SharePreferenceHelper().getJson(SharePreferenceHelper.favoriteKey) ?? [];
+    if (favoriteList.isNotEmpty) {
+      for (int i = 0; i < favoriteList.length; i++) {
+        Map temp = methodList[favoriteList[i]];
+        temp['id'] = favoriteList[i];
+        chosenMethod.add(temp);
+      }
+    }
+    // random choose 3 method
+    while (chosenMethod.length < 5 + favoriteList.length) {
+      int random = Random().nextInt(methodList.length);
+      if (!favoriteList.contains(random) && !randomList.contains(random)) {
+        randomList.add(random);
+        Map temp = methodList[random];
+        temp['id'] = random;
+        chosenMethod.add(temp);
+      }
     }
     return chosenMethod;
   }
@@ -50,9 +47,7 @@ class _SurvialHomeState extends State<SurvialHome> {
     Widget leafeBar = Stack(
       alignment: Alignment.bottomCenter,
       children: [
-        Image.asset(
-          "resources/image/leafe.png",
-        ),
+        Image.asset("resources/image/decorate/leafe.png"),
         SizedBox(
           width: w * 0.6,
           child: Row(
