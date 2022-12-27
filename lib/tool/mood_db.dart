@@ -41,6 +41,12 @@ class MoodDB {
     return await dbClient.query('mood');
   }
 
+  // query by date like
+  Future<List<Map<String, dynamic>>> queryByDate(String date) async {
+    Database dbClient = await db;
+    return await dbClient.query('mood', where: 'date LIKE ?', whereArgs: ['%$date%']);
+  }
+
   Future<int?> queryRowCount() async {
     Database dbClient = await db;
     return Sqflite.firstIntValue(await dbClient.rawQuery('SELECT COUNT(*) FROM mood'));

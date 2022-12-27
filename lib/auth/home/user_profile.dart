@@ -174,6 +174,7 @@ class _UserProfileState extends State<UserProfile> {
                     children: [
                       Image.asset('resources/image/decorate/grid (1).png'),
                       const Text('心情紀錄: ', style: ThemeText.contentStyle),
+                      SizedBox(width: 20),
                       GradientButton(
                         onPressed: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => const MoodHistory()));

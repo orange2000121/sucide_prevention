@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:sucide_prevention/auth.dart';
 import 'package:sucide_prevention/auth/home/login_page.dart';
 import 'package:sucide_prevention/home/home_page.dart';
@@ -13,7 +11,7 @@ main() async {
   WidgetsFlutterBinding.ensureInitialized();
   LocalNoticeService().setup();
   DateTime now = DateTime.now();
-  LocalNoticeService().addNotification("test", "test", DateTime.utc(now.year, now.month, now.day, 18).millisecondsSinceEpoch, "test");
+  LocalNoticeService().addNotification("心情花園", "紀錄心情", DateTime.utc(now.year, now.month, now.day, 12).millisecondsSinceEpoch, "test");
   SystemChrome.setPreferredOrientations([
     // 強制豎屏
     DeviceOrientation.portraitUp,
