@@ -79,8 +79,9 @@ flutter:
     - resources/image/button/location/
     - resources/image/survial/
     - resources/image/background/
-    - resources/doc/
+    - resources/image/decorate/
     - resources/doc/survial/
+    - resources/doc/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

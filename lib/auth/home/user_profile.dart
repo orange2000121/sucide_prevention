@@ -60,7 +60,7 @@ class _UserProfileState extends State<UserProfile> {
                   padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
                   child: Row(
                     children: [
-                      Image.asset('resources/image/grid (1).png'),
+                      Image.asset('resources/image/decorate/grid (1).png'),
                       Text('帳號 ： ${auth.getuserdata()}', style: ThemeText.contentStyle),
                     ],
                   ),
@@ -72,7 +72,7 @@ class _UserProfileState extends State<UserProfile> {
                     children: [
                       Row(
                         children: [
-                          Image.asset('resources/image/grid (1).png'),
+                          Image.asset('resources/image/decorate/grid (1).png'),
                           const Text('密碼 ： *******', style: ThemeText.contentStyle),
                         ],
                       ),
@@ -107,7 +107,7 @@ class _UserProfileState extends State<UserProfile> {
                   padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
                   child: Row(
                     children: [
-                      Image.asset('resources/image/grid (1).png'),
+                      Image.asset('resources/image/decorate/grid (1).png'),
                       const Text('手錶編號 ： ', style: ThemeText.contentStyle),
                       SizedBox(
                         width: 172,
@@ -172,7 +172,7 @@ class _UserProfileState extends State<UserProfile> {
                   padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
                   child: Row(
                     children: [
-                      Image.asset('resources/image/grid (1).png'),
+                      Image.asset('resources/image/decorate/grid (1).png'),
                       const Text('心情紀錄: ', style: ThemeText.contentStyle),
                       GradientButton(
                         onPressed: () {
