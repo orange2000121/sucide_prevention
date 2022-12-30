@@ -23,6 +23,7 @@ class _SurvialHomeState extends State<SurvialHome> {
   int modeIndex = 2;
   String methodMode = 'all';
   String title = '緊急救生包';
+  final ScrollController _controler = ScrollController();
   Future choseMethod(String mode) async {
     List allMethodList = await readMethod('resources/doc/survial/methods.json');
     List randomMethodList = [];
@@ -113,6 +114,8 @@ class _SurvialHomeState extends State<SurvialHome> {
                     builder: (context, AsyncSnapshot snapshot) {
                       if (snapshot.hasData) {
                         return ListView.builder(
+                          padding: const EdgeInsets.only(top: 20),
+                          controller: _controler,
                           itemCount: snapshot.data.length,
                           itemBuilder: (context, index) {
                             return InkWell(
@@ -163,6 +166,7 @@ class _SurvialHomeState extends State<SurvialHome> {
                 iconSize: 50,
                 onPressed: () {
                   setState(() {
+                    _controler.animateTo(0, duration: const Duration(milliseconds: 500), curve: Curves.ease);
                     modeIndex = (modeIndex + 1) % 3;
                     title = modeConst[modeIndex]['title'];
                   });

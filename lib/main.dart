@@ -11,7 +11,7 @@ main() async {
   WidgetsFlutterBinding.ensureInitialized();
   LocalNoticeService().setup();
   DateTime now = DateTime.now();
-  LocalNoticeService().addNotification("心情花園", "紀錄心情", DateTime.utc(now.year, now.month, now.day, 12).millisecondsSinceEpoch, "test");
+  LocalNoticeService().addNotification("心情花園", "紀錄心情", DateTime.utc(now.year, now.month, now.day + 1, 12).millisecondsSinceEpoch, "test");
   SystemChrome.setPreferredOrientations([
     // 強制豎屏
     DeviceOrientation.portraitUp,

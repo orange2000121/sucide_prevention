@@ -29,21 +29,24 @@ class _MoodHistoryState extends State<MoodHistory> {
     await showDialog<bool>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
+        backgroundColor: const Color.fromARGB(255, 234, 232, 232),
         title: Text('$date 的心情紀錄'),
         content: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: List.generate(record.length, (recordIdx) {
             return Card(
+              color: const Color(0xffDDEBEB),
+              shadowColor: const Color.fromARGB(255, 143, 155, 155),
               child: Column(
                 children: [
                   Text(title[recordIdx]),
-                  Divider(),
+                  const Divider(),
                   SizedBox(
                     width: 300,
                     height: 50,
                     child: ListView(
-                      // padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.only(left: 20),
                       scrollDirection: Axis.horizontal,
                       children: List.generate(
                         content[recordIdx].length,
@@ -135,18 +138,18 @@ class _MoodHistoryState extends State<MoodHistory> {
                   builder: (context, AsyncSnapshot<List<Map>> snapshot) {
                     if (snapshot.hasData) {
                       return ListView.builder(
+                        padding: const EdgeInsets.only(top: 10),
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
                           Map record = jsonDecode(snapshot.data![index]['record'])[0];
                           String mood = record.values.first[0];
                           String time = snapshot.data![index]['date'].split(' ')[1];
-                          print(time);
                           String hour = time.split(':')[0];
                           return Padding(
                             padding: EdgeInsets.fromLTRB(w * 0.05, 5, w * 0.05, 5),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 foregroundColor: Colors.black,
                                 backgroundColor: Colors.white,
                                 shape: RoundedRectangleBorder(
