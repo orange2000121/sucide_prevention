@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:sucide_prevention/emergency_survival_kit/pagination/survial_method.dart';
 import 'package:sucide_prevention/tool/load_json.dart';
@@ -118,33 +119,35 @@ class _SurvialHomeState extends State<SurvialHome> {
                           controller: _controler,
                           itemCount: snapshot.data.length,
                           itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                debugPrint('$index');
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => SurvialMethod(methodNum: snapshot.data[index]['id'])));
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: const Color.fromARGB(191, 255, 255, 255),
-                                ),
-                                margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                child: Column(
-                                  children: [
-                                    Text('${snapshot.data[index]['title']}', style: ThemeText.subtitleStyle),
-                                    const SizedBox(height: 10),
-                                    Container(
-                                      height: 200,
-                                      width: w * 0.8,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: const Color.fromARGB(191, 255, 255, 255),
-                                        image: DecorationImage(image: AssetImage(snapshot.data[index]['image']), fit: BoxFit.cover),
-                                      ),
+                            return Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                              child: OpenContainer(
+                                transitionDuration: const Duration(milliseconds: 800),
+                                closedColor: Colors.white,
+                                closedShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                                closedBuilder: ((context, action) {
+                                  return Padding(
+                                    padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                    child: Column(
+                                      children: [
+                                        Text('${snapshot.data[index]['title']}', style: ThemeText.subtitleStyle),
+                                        const SizedBox(height: 10),
+                                        Container(
+                                          height: 200,
+                                          width: w * 0.8,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(10),
+                                            color: const Color.fromARGB(191, 255, 255, 255),
+                                            image: DecorationImage(image: AssetImage(snapshot.data[index]['image']), fit: BoxFit.cover),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  );
+                                }),
+                                openBuilder: ((context, action) {
+                                  return SurvialMethod(methodNum: snapshot.data[index]['id']);
+                                }),
                               ),
                             );
                           },
