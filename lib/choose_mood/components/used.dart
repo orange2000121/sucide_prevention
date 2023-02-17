@@ -54,8 +54,8 @@ class _UsedState extends State<Used> {
                 },
               ),
               Dropdown(
-                title: '有效程度(1-5)',
-                options: const ['1', '2', '3', '4', '5'],
+                title: '有效程度(0-5)',
+                options: const ['0', '1', '2', '3', '4', '5'],
                 onSelect: (value) {
                   answer['有效程度'] = value;
                   widget.onAnswer(answer);

@@ -29,6 +29,7 @@ class _MoodHistoryState extends State<MoodHistory> {
     await showDialog<bool>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
+        scrollable: true,
         backgroundColor: const Color.fromARGB(255, 234, 232, 232),
         title: Text('$date 的心情紀錄'),
         content: Column(
