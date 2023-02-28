@@ -53,8 +53,8 @@ class _PosNegMoodState extends State<PosNegMood> {
           });
         },
         style: ElevatedButton.styleFrom(
-          primary: isPosItemSelected[index] ? chosenColor : Colors.transparent,
-          onPrimary: Colors.black,
+          foregroundColor: isPosItemSelected[index] ? chosenColor : Colors.transparent,
+          backgroundColor: Colors.black,
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18.0),
@@ -75,8 +75,8 @@ class _PosNegMoodState extends State<PosNegMood> {
           });
         },
         style: ElevatedButton.styleFrom(
-          primary: isNegItemSelected[index] ? chosenColor : Colors.transparent,
-          onPrimary: Colors.black,
+          foregroundColor: isNegItemSelected[index] ? chosenColor : Colors.transparent,
+          backgroundColor: Colors.black,
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(18.0),

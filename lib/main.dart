@@ -21,7 +21,10 @@ main() async {
   await Firebase.initializeApp();
   await LocalNoticeService().setup();
 
-  runApp(const MyApp());
+  runApp(const MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -36,6 +39,7 @@ class MyApp extends StatelessWidget {
         // Loading
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const MaterialApp(
+            debugShowCheckedModeBanner: false,
             home: SplashPage(photoPath: "resources/image/splash_logo.png"),
           );
         }
@@ -43,10 +47,12 @@ class MyApp extends StatelessWidget {
         else {
           if (AuthService().getuserdata() == null) {
             return const MaterialApp(
+              debugShowCheckedModeBanner: false,
               home: LoginPage(),
             );
           } else {
             return const MaterialApp(
+              debugShowCheckedModeBanner: false,
               home: HomePage(),
             );
           }

@@ -51,7 +51,6 @@ class _MoodHomeState extends State<MoodHome> {
               answerTemp = {
                 question['title']: [answer],
               };
-              print('cuttent answer $answerTemp');
             },
           ));
           break;
@@ -62,7 +61,6 @@ class _MoodHomeState extends State<MoodHome> {
                 '正面情緒': pos,
                 '負面情緒': neg,
               };
-              print('cuttent answer $answerTemp');
             },
           ));
           break;
@@ -72,7 +70,6 @@ class _MoodHomeState extends State<MoodHome> {
               answerTemp = {
                 '負面情緒': neg,
               };
-              print('cuttent answer $answerTemp');
             },
           ));
           break;
@@ -82,7 +79,6 @@ class _MoodHomeState extends State<MoodHome> {
               answerTemp = {
                 '正面情緒': pos,
               };
-              print('cuttent answer $answerTemp');
             },
           ));
           break;
@@ -94,7 +90,6 @@ class _MoodHomeState extends State<MoodHome> {
               answerTemp = {
                 question['title']: [option],
               };
-              print('cuttent answer $answerTemp');
               answers.add(answerTemp);
               setState(() {
                 makeQuestionPagination(
@@ -113,7 +108,6 @@ class _MoodHomeState extends State<MoodHome> {
               answerTemp = {
                 question['title']: [date]
               };
-              print('cuttent answer $answerTemp');
             },
           ));
           break;
@@ -124,7 +118,6 @@ class _MoodHomeState extends State<MoodHome> {
               answerTemp = {
                 question['title']: [location]
               };
-              print('cuttent answer $answerTemp');
             },
           ));
           break;
@@ -136,7 +129,6 @@ class _MoodHomeState extends State<MoodHome> {
               answerTemp = {
                 question['title']: answer,
               };
-              print('cuttent answer $answerTemp');
             },
           ));
           break;
@@ -147,7 +139,6 @@ class _MoodHomeState extends State<MoodHome> {
               answerTemp = {
                 question['title']: [answer],
               };
-              print('cuttent answer $answerTemp');
             },
           ));
           break;
@@ -158,13 +149,11 @@ class _MoodHomeState extends State<MoodHome> {
               answerTemp = {
                 question['title']: [answer],
               };
-              print('cuttent answer $answerTemp');
             },
           ));
           break;
       }
     }
-    print(questionPagination);
     return questionPagination;
   }
 
@@ -208,8 +197,6 @@ class _MoodHomeState extends State<MoodHome> {
                     );
                     setState(() {});
                   } else {
-                    print('anwers: $answers');
-                    print('page index: $pageIndex');
                     Fluttertoast.showToast(msg: '需填寫問題');
                   }
                 }
@@ -227,7 +214,6 @@ class _MoodHomeState extends State<MoodHome> {
   @override
   Widget build(BuildContext context) {
     double topPadding = MediaQuery.of(context).padding.top;
-    print('page build index: $pageIndex');
     try {
       pageController.animateToPage(pageIndex, duration: const Duration(milliseconds: 400), curve: Curves.easeInOut); // 換頁動畫
       pageController = PageController(initialPage: pageIndex); //初始化pageController

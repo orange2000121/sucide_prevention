@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sucide_prevention/tool/load_json.dart';
 import 'package:sucide_prevention/tool/sharepreference_helper.dart';
 import 'package:sucide_prevention/utils.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class SurvialMethod extends StatefulWidget {
   final int methodNum;
@@ -13,6 +15,7 @@ class SurvialMethod extends StatefulWidget {
 
 class _SurvialMethodState extends State<SurvialMethod> {
   bool isFav = false;
+  GlobalKey infomationKey = GlobalKey();
 
   Future<bool> determineFav() async {
     List? favoriteList = await SharePreferenceHelper().getJson(SharePreferenceHelper.favoriteKey);
@@ -126,7 +129,44 @@ class _SurvialMethodState extends State<SurvialMethod> {
                                 ),
                               ],
                             ),
-                            Text(title, style: ThemeText.titleStyle),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const SizedBox(),
+                                Text(title, style: ThemeText.titleStyle),
+                                IconButton(
+                                  key: infomationKey,
+                                  onPressed: () {
+                                    RenderBox box = infomationKey.currentContext!.findRenderObject() as RenderBox;
+                                    Offset position = box.localToGlobal(Offset.zero); //this is global position
+                                    double y = position.dy; //this is y - I think it's what you want
+                                    double x = position.dx; //this is x - I think it's what you want
+                                    showMenu(
+                                      context: context,
+                                      position: RelativeRect.fromLTRB(x, y + 50, 0, 0),
+                                      items: [
+                                        const PopupMenuItem(
+                                          child: Text('參考書籍：DBT®技巧訓練講義及作業單'),
+                                        ),
+                                        PopupMenuItem(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              const Text('自殺防治中心：'),
+                                              TextButton(
+                                                onPressed: () => launchUrlString('https://www.mmh.org.tw/depwebpage.php?id=96'),
+                                                child: const Text('https://www.mmh.org.tw/depwebpage.php?id=96'),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                  icon: Image.asset('resources/image/button/infomation.png'),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),

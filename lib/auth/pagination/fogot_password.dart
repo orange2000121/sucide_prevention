@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sucide_prevention/utils.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sucide_prevention/auth.dart';
 
 import '../home/login_page.dart';
@@ -74,6 +73,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           ],
                         ),
                       );
+                      if (!mounted) return;
                       Navigator.push(
                           context,
                           MaterialPageRoute(

@@ -25,7 +25,6 @@ class _LocationsState extends State<Locations> {
   void initState() {
     super.initState();
     focusNode.addListener(() {
-      print('focus');
       setState(() {});
     });
   }

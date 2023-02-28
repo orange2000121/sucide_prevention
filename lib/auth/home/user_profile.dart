@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sucide_prevention/auth.dart';
 import 'package:sucide_prevention/auth/home/login_page.dart';
-import 'package:sucide_prevention/auth/pagination/change_password.dart';
 import 'package:sucide_prevention/auth/pagination/mood_history.dart';
-import 'package:sucide_prevention/tool/mood_db.dart';
 import 'package:sucide_prevention/tool/sharepreference_helper.dart';
 import 'package:sucide_prevention/utils.dart';
 import 'package:sucide_prevention/home/components/gradient_button.dart';
@@ -141,7 +138,6 @@ class _UserProfileState extends State<UserProfile> {
                           },
                           onTap: () async {
                             //todo : unlock the text field
-                            print('before lock: $lock');
                             if (lock) {
                               lock = (await showDialog<bool>(
                                 context: context,
@@ -174,7 +170,7 @@ class _UserProfileState extends State<UserProfile> {
                     children: [
                       Image.asset('resources/image/decorate/grid (1).png'),
                       const Text('心情紀錄: ', style: ThemeText.contentStyle),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                       GradientButton(
                         onPressed: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => const MoodHistory()));
@@ -184,6 +180,46 @@ class _UserProfileState extends State<UserProfile> {
                         borderRadius: BorderRadius.circular(50),
                         gradient: const LinearGradient(colors: [Color(0xffEEEBEB), Color(0xffC9D1DD)]),
                         child: const Text('查看', style: TextStyle(color: Colors.black, fontSize: 20)),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 0, 10),
+                  child: Row(
+                    children: [
+                      Image.asset('resources/image/decorate/grid (1).png'),
+                      const Text('刪除帳號: ', style: ThemeText.contentStyle),
+                      const SizedBox(width: 20),
+                      GradientButton(
+                        onPressed: () {
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('確定刪除帳號？'),
+                              content: const Text('刪除後將無法復原'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, 'cancel'),
+                                  child: const Text('取消'),
+                                ),
+                                TextButton(
+                                  onPressed: () async {
+                                    await auth.deleteaccount();
+                                    if (!mounted) return;
+                                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LoginPage()), (route) => false);
+                                  },
+                                  child: const Text('確認'),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        width: 100,
+                        height: 40,
+                        borderRadius: BorderRadius.circular(50),
+                        gradient: const LinearGradient(colors: [Color.fromARGB(255, 249, 7, 7), Color.fromARGB(255, 251, 18, 18)]),
+                        child: const Text('刪除', style: TextStyle(color: Colors.black, fontSize: 20)),
                       )
                     ],
                   ),

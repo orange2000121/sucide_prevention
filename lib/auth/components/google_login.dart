@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sucide_prevention/auth/home/login_page.dart';
 import 'package:sucide_prevention/home/home_page.dart';
 import 'package:sucide_prevention/auth.dart';
-import 'package:sucide_prevention/splash_page.dart';
 
 class GoogleSignInButton extends StatefulWidget {
   const GoogleSignInButton({Key? key}) : super(key: key);
@@ -18,6 +17,7 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
     return IconButton(
       onPressed: () async {
         final ok = await auth.signinWithGoogle();
+        if (!mounted) return;
         if (ok) {
           Navigator.push(
               context,

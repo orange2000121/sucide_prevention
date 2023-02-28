@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:sucide_prevention/auth/home/login_page.dart';
 import 'package:sucide_prevention/utils.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sucide_prevention/auth.dart';
 
-class createaccount extends StatefulWidget {
-  const createaccount({Key? key}) : super(key: key);
+class CreateAccount extends StatefulWidget {
+  const CreateAccount({Key? key}) : super(key: key);
 
   @override
-  State<createaccount> createState() => _createaccountState();
+  State<CreateAccount> createState() => _CreateAccountState();
 }
 
-class _createaccountState extends State<createaccount> {
+class _CreateAccountState extends State<CreateAccount> {
   final AuthService auth = AuthService();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -86,6 +85,7 @@ class _createaccountState extends State<createaccount> {
                           ],
                         ),
                       );
+                      if (!mounted) return;
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
                     }
                   },

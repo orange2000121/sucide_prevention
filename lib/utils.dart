@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_launcher_icons/xml_templates.dart';
 
 abstract class ThemeText {
   static const TextStyle titleStyle = TextStyle(

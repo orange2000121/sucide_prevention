@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tzData;
+import 'package:timezone/data/latest.dart' as tz_data;
 
 class LocalNoticeService {
   final _localNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -23,7 +23,7 @@ class LocalNoticeService {
 
   Future<void> addNotification(String title, String body, int endTime, String channel) async {
     // #1
-    tzData.initializeTimeZones();
+    tz_data.initializeTimeZones();
     final scheduleTime = tz.TZDateTime.fromMillisecondsSinceEpoch(tz.local, endTime);
 
     // #2
@@ -32,7 +32,7 @@ class LocalNoticeService {
         channel // channel Name
         );
 
-    final iosDetail = DarwinNotificationDetails();
+    const iosDetail = DarwinNotificationDetails();
 
     final noticeDetail = NotificationDetails(
       iOS: iosDetail,

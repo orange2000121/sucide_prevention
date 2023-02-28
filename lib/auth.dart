@@ -1,11 +1,10 @@
 // ignore_for_file: no_duplicate_case_values
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-enum authstatus {
+enum AuthStatus {
   successful,
   wrongpassword,
   emailalreadyexists,
@@ -117,5 +116,22 @@ class AuthService {
   //signout
   signoutwithGoogle() {
     FirebaseAuth.instance.signOut();
+  }
+
+  //delete account
+  Future<bool> deleteaccount() async {
+    try {
+      await FirebaseAuth.instance.currentUser?.delete();
+      return true;
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case "requires-recent-login":
+          Fluttertoast.showToast(msg: "請重新登入");
+          return false;
+        default:
+          Fluttertoast.showToast(msg: "再試一次");
+          return false;
+      }
+    }
   }
 }

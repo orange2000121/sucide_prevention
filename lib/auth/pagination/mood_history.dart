@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:sucide_prevention/tool/mood_db.dart';
 import 'package:sucide_prevention/utils.dart';

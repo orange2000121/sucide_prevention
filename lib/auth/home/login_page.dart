@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sucide_prevention/auth/components/google_login.dart';
 import 'package:sucide_prevention/home/home_page.dart';
 import 'package:sucide_prevention/tool/mood_db.dart';
 import 'package:sucide_prevention/tool/sharepreference_helper.dart';
@@ -89,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const createaccount(),
+                              builder: (context) => const CreateAccount(),
                             ),
                           );
                         },
@@ -131,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                         return;
                       }
                       bool check = await auth.signinwithemail(email, password);
-                      print('check: $check');
+                      if (!mounted) return;
                       if (check) {
                         // firestore 下載更新手錶編號
                         FirebaseFirestore db = FirebaseFirestore.instance;
@@ -152,13 +150,11 @@ class _LoginPageState extends State<LoginPage> {
                             MoodDB moodDB = MoodDB();
                             moodDB.deleteAll();
                             data.forEach((key, value) {
-                              print('key: $key, value: $value');
                               moodDB.insertMood(value, key);
                             });
                           },
-                          onError: (e) => print("Error getting document: $e"),
+                          // onError: (e) => print("Error getting document: $e"),
                         );
-
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(builder: (context) => const HomePage()),

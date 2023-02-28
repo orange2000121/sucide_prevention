@@ -149,7 +149,6 @@ class OtherInput extends StatelessWidget {
   );
   @override
   Widget build(BuildContext context) {
-    double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     double itemWidth = w * 0.3;
     return Column(
@@ -167,7 +166,7 @@ class OtherInput extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: hint,
                 filled: true,
-                fillColor: Color(0xff94C1C9),
+                fillColor: const Color(0xff94C1C9),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
                   borderSide: BorderSide.none,
