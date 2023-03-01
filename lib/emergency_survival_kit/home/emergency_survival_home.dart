@@ -169,7 +169,7 @@ class _SurvialHomeState extends State<SurvialHome> {
                 iconSize: 50,
                 onPressed: () {
                   setState(() {
-                    _controler.animateTo(0, duration: const Duration(milliseconds: 500), curve: Curves.ease);
+                    _controler.animateTo(0, duration: const Duration(milliseconds: 300), curve: Curves.ease);
                     modeIndex = (modeIndex + 1) % 3;
                     title = modeConst[modeIndex]['title'];
                   });

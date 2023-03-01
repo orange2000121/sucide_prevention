@@ -76,7 +76,7 @@ class _SurvialMethodState extends State<SurvialMethod> {
               String title = snapshot.data[widget.methodNum]['title'];
               String image = snapshot.data[widget.methodNum]['image'];
               List<Widget> contents = List.generate(
-                method.length - 1,
+                method.length,
                 (index) => Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(method[index], style: ThemeText.contentStyle),
@@ -133,7 +133,10 @@ class _SurvialMethodState extends State<SurvialMethod> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 const SizedBox(),
-                                Text(title, style: ThemeText.titleStyle),
+                                Container(
+                                  constraints: BoxConstraints(maxWidth: w * 0.7),
+                                  child: Text(title, style: ThemeText.titleStyle),
+                                ),
                                 IconButton(
                                   key: infomationKey,
                                   onPressed: () {
@@ -183,7 +186,7 @@ class _SurvialMethodState extends State<SurvialMethod> {
                       image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
                     ),
                   ),
-                  lastContent,
+                  // lastContent,
                   const SizedBox(),
                 ],
               );
