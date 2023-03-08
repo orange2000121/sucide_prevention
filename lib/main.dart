@@ -11,8 +11,8 @@ main() async {
   WidgetsFlutterBinding.ensureInitialized();
   LocalNoticeService().setup();
   DateTime now = DateTime.now();
-  LocalNoticeService().addNotification("心情花園", "紀錄心情", DateTime.utc(now.year, now.month, now.day + 1, now.hour).millisecondsSinceEpoch, "紀錄心情");
-  LocalNoticeService().addNotification("心情花園", "紀錄心情", DateTime.utc(now.year, now.month, now.day + 2, now.hour).millisecondsSinceEpoch, "紀錄心情");
+  LocalNoticeService().addNotification("情緒花園", "紀錄心情", DateTime.utc(now.year, now.month, now.day + 1, now.hour).millisecondsSinceEpoch, "紀錄心情");
+  LocalNoticeService().addNotification("情緒花園", "紀錄心情", DateTime.utc(now.year, now.month, now.day + 2, now.hour).millisecondsSinceEpoch, "紀錄心情");
   SystemChrome.setPreferredOrientations([
     // 強制豎屏
     DeviceOrientation.portraitUp,
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: SplashPage(photoPath: "resources/image/splash_logo.png"),
+            home: SplashPage(photoPath: "resources/image/Meditation-pana-removebg-preview.png"),
           );
         }
         // Main

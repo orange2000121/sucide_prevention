@@ -158,7 +158,7 @@ class _SurvialMethodState extends State<SurvialMethod> {
                                               const Text('自殺防治中心：'),
                                               TextButton(
                                                 onPressed: () => launchUrlString('https://www.mmh.org.tw/depwebpage.php?id=96'),
-                                                child: const Text('https://www.mmh.org.tw/depwebpage.php?id=96'),
+                                                child: const Text('馬偕紀念醫院-自殺防治中心'),
                                               ),
                                             ],
                                           ),
