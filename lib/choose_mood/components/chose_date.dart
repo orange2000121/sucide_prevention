@@ -27,6 +27,7 @@ class _ChoseDateState extends State<ChoseDate> {
         Padding(
           padding: const EdgeInsets.all(18.0),
           child: SfDateRangePicker(
+            maxDate: DateTime.now(),
             onSelectionChanged: (dateTime) {
               String date = dateTime.value.toString().split(' ')[0];
               widget.onAnswer(date);
