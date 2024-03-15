@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sucide_prevention/home/home_page.dart';
 import 'package:sucide_prevention/tool/mood_db.dart';
 import 'package:sucide_prevention/tool/sharepreference_helper.dart';
@@ -96,30 +97,38 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  SizedBox(
-                    width: 300,
-                    child: TextFormField(
-                      controller: email,
-                      decoration: const InputDecoration(
-                        labelText: '帳號',
-                        hintStyle: TextStyle(fontSize: 18),
-                        border: ThemeBorder.inputBorder,
-                      ),
-                      validator: (value) => value!.isEmpty ? '請輸入帳號' : null,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: 300,
-                    child: TextFormField(
-                      obscureText: true,
-                      controller: password,
-                      decoration: const InputDecoration(
-                        labelText: '密碼',
-                        hintStyle: TextStyle(fontSize: 18),
-                        border: ThemeBorder.inputBorder,
-                      ),
-                      validator: (value) => value!.isEmpty ? '密碼不能為空' : null,
+                  AutofillGroup(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          width: 300,
+                          child: TextFormField(
+                            controller: email,
+                            autofillHints: const [AutofillHints.username],
+                            decoration: const InputDecoration(
+                              labelText: '帳號',
+                              hintStyle: TextStyle(fontSize: 18),
+                              border: ThemeBorder.inputBorder,
+                            ),
+                            validator: (value) => value!.isEmpty ? '請輸入帳號' : null,
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        SizedBox(
+                          width: 300,
+                          child: TextFormField(
+                            obscureText: true,
+                            controller: password,
+                            autofillHints: const [AutofillHints.password],
+                            decoration: const InputDecoration(
+                              labelText: '密碼',
+                              hintStyle: TextStyle(fontSize: 18),
+                              border: ThemeBorder.inputBorder,
+                            ),
+                            validator: (value) => value!.isEmpty ? '密碼不能為空' : null,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -128,6 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                       if (!_formKey.currentState!.validate()) {
                         return;
                       }
+                      TextInput.finishAutofillContext();
                       bool check = await auth.signinwithemail(email, password);
                       if (!mounted) return;
                       if (check) {

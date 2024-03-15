@@ -171,8 +171,7 @@ class _MoodHomeState extends State<MoodHome> {
                   //加入最後ㄧ個問題的回答
                   answers.add(answerTemp);
                 }
-
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const ChoseMoodEnd()), (route) => false);
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => ChoseMoodEnd(answers: answers)), (route) => false);
                 String now = DateTime.now().toString();
                 // insert to mood_db on sqlite
                 await MoodDB().insertMood(answers, now);

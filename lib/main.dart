@@ -5,21 +5,22 @@ import 'package:sucide_prevention/auth/home/login_page.dart';
 import 'package:sucide_prevention/home/home_page.dart';
 import 'package:sucide_prevention/splash_page.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:sucide_prevention/tool/local_notification_service.dart';
+import 'package:sucide_prevention/tool/firebase_message.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  LocalNoticeService().setup();
-  DateTime now = DateTime.now();
-  LocalNoticeService().addNotification("情緒花園", "紀錄心情", DateTime.utc(now.year, now.month, now.day + 1, now.hour).millisecondsSinceEpoch, "紀錄心情");
-  LocalNoticeService().addNotification("情緒花園", "紀錄心情", DateTime.utc(now.year, now.month, now.day + 2, now.hour).millisecondsSinceEpoch, "紀錄心情");
+  // await LocalNoticeService().setup();
+  // DateTime now = DateTime.now();
+  // LocalNoticeService().addNotification("情緒花園", "紀錄心情", DateTime.utc(now.year, now.month, now.day + 1, 12).millisecondsSinceEpoch, "紀錄心情");
+  // LocalNoticeService().addNotification("情緒花園", "紀錄心情", DateTime.utc(now.year, now.month, now.day + 2, 12).millisecondsSinceEpoch, "紀錄心情");
+  await Firebase.initializeApp();
   SystemChrome.setPreferredOrientations([
     // 強制豎屏
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown
   ]);
-  await Firebase.initializeApp();
-  await LocalNoticeService().setup();
+  // notification
+  FirebaseMessage().init();
 
   runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,

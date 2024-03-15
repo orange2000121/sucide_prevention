@@ -6,6 +6,12 @@ import 'package:timezone/data/latest.dart' as tz_data;
 class LocalNoticeService {
   final _localNotificationsPlugin = FlutterLocalNotificationsPlugin();
   Future<void> setup() async {
+    _localNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.requestPermission();
+    _localNotificationsPlugin.resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()?.requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
     // #1
     const androidSetting = AndroidInitializationSettings('@mipmap/ic_launcher');
     const iosSetting = DarwinInitializationSettings();
